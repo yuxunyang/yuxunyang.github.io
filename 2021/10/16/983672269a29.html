@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>2.3 | kubernetes: Linux 常用网络命令的使用 - 遇寻笔记</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="遇寻笔记"><meta name="msapplication-TileImage" content="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="遇寻笔记"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="ifconfigifconfig工具不仅可以被用来简单地获取网络接口配置信息，还可以修改这些配置，但是重启后会失效。-a：显示所有网络设备-s：显示简要信息iproutebrctl"><meta property="og:type" content="article"><meta property="og:title" content="2.3 | kubernetes: Linux 常用网络命令的使用"><meta property="og:url" content="https://eucham.me/2021/10/16/983672269a29.html"><meta property="og:site_name" content="遇寻笔记"><meta property="og:description" content="ifconfigifconfig工具不仅可以被用来简单地获取网络接口配置信息，还可以修改这些配置，但是重启后会失效。-a：显示所有网络设备-s：显示简要信息iproutebrctl"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://eucham.me/images/pics/e9f22d889a230bfda8e24c0a981740a8.png"><meta property="article:published_time" content="2021-10-16T08:20:24.304Z"><meta property="article:modified_time" content="2022-04-20T16:15:59.744Z"><meta property="article:author" content="遇寻"><meta property="article:tag" content="kubernetes"><meta property="article:tag" content="linux"><meta property="article:tag" content="网络"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/images/pics/e9f22d889a230bfda8e24c0a981740a8.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://eucham.me/2021/10/16/983672269a29.html"},"headline":"2.3 | kubernetes: Linux 常用网络命令的使用","image":["https://eucham.me/images/pics/e9f22d889a230bfda8e24c0a981740a8.png"],"datePublished":"2021-10-16T08:20:24.304Z","dateModified":"2022-04-20T16:15:59.744Z","author":{"@type":"Person","name":"遇寻"},"publisher":{"@type":"Organization","name":"遇寻笔记","logo":{"@type":"ImageObject","url":"https://eucham.me/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png"}},"description":"ifconfigifconfig工具不仅可以被用来简单地获取网络接口配置信息，还可以修改这些配置，但是重启后会失效。-a：显示所有网络设备-s：显示简要信息iproutebrctl"}</script><link rel="canonical" href="https://eucham.me/2021/10/16/983672269a29.html"><link rel="icon" href="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?7d79380bb26079f6dd33da78e83cf2ab";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><meta name="generator" content="Hexo 5.4.2"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png" alt="遇寻笔记" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/categories/AI">AI</a><a class="navbar-item" href="/categories/Kubernetes">Kubernetes</a><a class="navbar-item" href="/categories/Openstack">Openstack</a><a class="navbar-item" href="/categories/Docker">Container</a><a class="navbar-item" href="/categories/Golang">Golang</a><a class="navbar-item" href="/categories/Rust">Rust</a><a class="navbar-item" href="/about.html">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="To Find Me" href="https://github.com/eucham"><i class="fab fa-github"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/in/eucham"><i class="fab fa-linkedin"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-10-16T08:20:24.304Z" title="10/16/2021, 4:20:24 PM">2021-10-16</time>发表</span><span class="level-item"><time dateTime="2022-04-20T16:15:59.744Z" title="4/21/2022, 12:15:59 AM">2022-04-21</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Kubernetes/">Kubernetes</a></span><span class="level-item">12 分钟读完 (大约1757个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">2.3 | kubernetes: Linux 常用网络命令的使用</h1><div class="content"><h2 id="ifconfig"><a href="#ifconfig" class="headerlink" title="ifconfig"></a>ifconfig</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man8/ifconfig.8.html">manual-1</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/cd/E19253-01/816-5166/ifconfig-1m/index.html">manual-2</a></li>
+<li><code>man ifconfig</code></li>
+</ul>
+<p>ifconfig工具不仅可以被用来简单地获取网络接口配置信息，还可以修改这些配置，但是重启后会失效。</p>
+<p>命令概览</p>
+<ul>
+<li><code>-a</code>：显示所有网络设备</li>
+<li><code>-s</code>：显示简要信息</li>
+<li><code>&lt;interface&gt; &lt;operation&gt; &lt;parameters&gt;</code>：操作对应网卡<ul>
+<li><code>up</code>：启用网卡</li>
+<li><code>down</code>：关闭网卡</li>
+<li><code>txqueuelen &lt;NN&gt;</code>：设置网卡传输队列长度</li>
+<li><code>mtu &lt;NN&gt;</code>：设置网卡最大传输单元</li>
+<li><code>add &lt;address&gt;[/&lt;prefixlen&gt;]</code>：设置网卡地址<ul>
+<li><code>del &lt;address&gt;[/&lt;prefixlen&gt;]</code>：删除网卡地址</li>
+<li><code>netmask &lt;address&gt;</code>：设置子网掩码</li>
+<li><code>tunnel &lt;address&gt;</code>：网卡建立到 <code>address</code> 的隧道</li>
+<li><code>hw &lt;HW&gt; &lt;address&gt;</code>：设置网卡 MAC 地址</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>输出信息示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ifconfig ens33</span></span><br><span class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 172.16.214.5  netmask 255.255.255.0  broadcast 172.16.214.255</span><br><span class="line">        inet6 fe80::fd8f:e0f5:1f03:57ac  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether 00:0c:29:ee:fe:e0  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 76848  bytes 54358432 (54.3 MB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 72546  bytes 52701758 (52.7 MB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> ifconfig -s ens33</span></span><br><span class="line">Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg</span><br><span class="line">ens33     1500    76956      0      0 0         72673      0      0      0 BMRU</span><br></pre></td></tr></table></figure>
+
+<p>字段解析</p>
+<ul>
+<li>ens33：网卡名称，例 lo 为 loopback 的名称</li>
+<li>flags：<ul>
+<li><code>4163</code> = <code>0x1043</code> = <code>0x1000</code> + <code>0x40</code> + <code>0x2</code> + <code>0x1</code></li>
+<li>UP <code>0x1</code></li>
+<li>RUNNING <code>0x40</code></li>
+<li>BROADCAST <code>0x2</code></li>
+<li>MULTICAST <code>0x1000</code></li>
+</ul>
+</li>
+<li>IPv4<ul>
+<li>inet IPv4 地址</li>
+<li>netmask 子网掩码</li>
+<li>broadcast 广播地址</li>
+</ul>
+</li>
+<li>IPv6<ul>
+<li>inet6 IPv6 地址</li>
+<li>prefixlen </li>
+<li>scopeid</li>
+</ul>
+</li>
+<li>ether：网卡硬件地址，即 MAC 地址</li>
+<li>txqueuelen：传输数据的缓冲区的储存长度</li>
+<li>RX &amp; TX 共有字段<ul>
+<li>packets 数据包数</li>
+<li>bytes 总数据量</li>
+<li>errors 数据包发生错误的数量</li>
+<li>dropped 数据包由于有问题而遭丢弃的数量</li>
+<li>overruns</li>
+</ul>
+</li>
+<li>RX：数据包接收情况（由启动到目前为止）<ul>
+<li>frame</li>
+</ul>
+</li>
+<li>TX：数据包传送情况（由启动到目前为止）<ul>
+<li>collisions 数据包碰撞的情况。太多次，表示网络状况不好</li>
+<li>carrier </li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/pics/0dfcfbf77bbca9865403eb298ce666d1.jpg" alt="示例"></p>
+<h2 id="route"><a href="#route" class="headerlink" title="route"></a>route</h2><p>route 命令可以显示或设置 Linux 内核中的路由表，主要是静态路由。</p>
+<p>对于局域网中的 Linux 主机，要想访问 Internet，需要将局域网的网关 IP 地址设置为这个主机的默认路由。</p>
+<p>在命令行中通过 route 命令添加的路由在网卡重启或机器重启后失效。可以在 /etc/rc.local 中添加 route 命令来保证路由设置永久有效。</p>
+<p>通过 route 命令查看 Linux 内核的路由表（等同于 <code>netstat -r</code>）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> feivxs @ k8s-node-3 <span class="keyword">in</span> ~ [18:00:22]</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> route</span></span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">default         _gateway        0.0.0.0         UG    100    0        0 ens33</span><br><span class="line">link-local      0.0.0.0         255.255.0.0     U     1000   0        0 ens33</span><br><span class="line">172.16.214.0    0.0.0.0         255.255.255.0   U     100    0        0 ens33</span><br><span class="line">172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0</span><br><span class="line">192.168.0.0     172.16.214.2    255.255.255.255 UGH   0      0        0 tunl0</span><br><span class="line">192.168.0.0     172.16.214.2    255.255.255.0   UG    0      0        0 tunl0</span><br><span class="line">192.168.1.0     -               255.255.255.0   !     0      -        0 -</span><br><span class="line">192.168.2.0     -               255.255.255.0   !     0      -        0 -</span><br><span class="line">192.168.3.0     -               255.255.255.0   !     0      -        0 -</span><br><span class="line">192.168.76.128  0.0.0.0         255.255.255.192 U     0      0        0 *</span><br><span class="line">192.168.76.137  0.0.0.0         255.255.255.255 UH    0      0        0 calie2066d21eda</span><br><span class="line">192.168.76.138  0.0.0.0         255.255.255.255 UH    0      0        0 cali3ef2c7cdd89</span><br><span class="line">192.168.76.139  0.0.0.0         255.255.255.255 UH    0      0        0 calic440f455693</span><br><span class="line">192.168.109.64  172.16.214.3    255.255.255.192 UG    0      0        0 tunl0</span><br><span class="line">192.168.140.64  172.16.214.4    255.255.255.192 UG    0      0        0 tunl0</span><br><span class="line">192.168.235.192 172.16.214.2    255.255.255.192 UG    0      0        0 tunl0</span><br></pre></td></tr></table></figure>
+
+<p>字段含义</p>
+<table>
+<thead>
+<tr>
+<th align="left">列</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Destination</td>
+<td align="left">目标网络或目标主机。Destination 为 default（0.0.0.0）时，表示这个是默认网关，所有数据都发到这个网关（这里是 10.139.128.1）</td>
+</tr>
+<tr>
+<td align="left">Gateway</td>
+<td align="left">网关地址，0.0.0.0 表示当前记录对应的 Destination 跟本机在同一个网段，通信时不需要经过网关</td>
+</tr>
+<tr>
+<td align="left">Genmask</td>
+<td align="left">Destination 字段的网络掩码，Destination 是主机时需要设置为 255.255.255.255，是默认路由时会设置为 0.0.0.0</td>
+</tr>
+<tr>
+<td align="left">Flags</td>
+<td align="left">标记，含义参考表格后面的解释</td>
+</tr>
+<tr>
+<td align="left">Metric</td>
+<td align="left">路由距离，到达指定网络所需的中转数，是大型局域网和广域网设置所必需的 （不在Linux内核中使用。）</td>
+</tr>
+<tr>
+<td align="left">Ref</td>
+<td align="left">路由项引用次数 （不在Linux内核中使用。）</td>
+</tr>
+<tr>
+<td align="left">Use</td>
+<td align="left">此路由项被路由软件查找的次数</td>
+</tr>
+<tr>
+<td align="left">Iface</td>
+<td align="left">网卡名字，例如 eth0</td>
+</tr>
+</tbody></table>
+<p>Flags 含义：</p>
+<ul>
+<li>U 路由是活动的</li>
+<li>H 目标是个主机</li>
+<li>G 需要经过网关</li>
+<li>R 恢复动态路由产生的表项</li>
+<li>D 由路由的后台程序动态地安装</li>
+<li>M 由路由的后台程序修改</li>
+<li>! 拒绝路由</li>
+</ul>
+<p>Linux 内核的路由种类</p>
+<ol>
+<li>主机路由</li>
+</ol>
+<p>路由表中指向单个 IP 地址或主机名的路由记录，其 Flags 字段为 H。下面示例中，对于 10.0.0.10 这个主机，通过网关 10.139.128.1 网关路由：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_139_74_centos ~]# route -n</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">10.0.0.10       10.139.128.1    255.255.255.255 UGH   0      0        0 eth0</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>网络路由</li>
+</ol>
+<p>主机可以到达的网络。下面示例中，对于 10.0.0.0/24 这个网络，通过网关 10.139.128.1 网关路由：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_139_74_centos ~]# route -n</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">10.0.0.0        10.139.128.1    255.255.255.0   UG    0      0        0 eth0</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>默认路由</li>
+</ol>
+<p>当目标主机的 IP 地址或网络不在路由表中时，数据包就被发送到默认路由（默认网关）上。默认路由的 Destination 是 default 或 0.0.0.0。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_139_74_centos ~]# route</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">default         gateway         0.0.0.0         UG    0      0        0 eth0</span><br></pre></td></tr></table></figure>
+
+
+<p>命令选项</p>
+<ul>
+<li>-A：设置地址类型</li>
+<li>-C：打印 Linux 内核的路由缓存</li>
+<li>-v：显示详细信息</li>
+<li>-n：不执行 DNS 反向查找，直接显示数字形式的 IP 地址</li>
+<li>-e：netstat 格式显示路由表</li>
+<li>-net：到一个网络的路由表</li>
+<li>-host：到一个主机的路由表</li>
+</ul>
+<p>命令参数</p>
+<ul>
+<li>add：增加路由记录</li>
+<li>del：删除路由记录</li>
+<li>target：目的网络或目的主机</li>
+<li>gw：设置默认网关</li>
+<li>mss：设置TCP的最大区块长度（MSS），单位MB</li>
+<li>window：指定通过路由表的TCP连接的TCP窗口大小</li>
+<li>dev：路由记录所表示的网络接口</li>
+</ul>
+<h2 id="ip"><a href="#ip" class="headerlink" title="ip"></a>ip</h2><p>ip 几乎可以替代 <code>route</code> 和 <code>ifconfig</code> 命令，输出内容也比较类似。</p>
+<ul>
+<li><code>ip address</code>/<code>ip a</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> feivxs @ k8s-node-3 <span class="keyword">in</span> ~ [21:21:23] C:255</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ip -s -h address show ens33</span></span><br><span class="line">2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">    link/ether 00:0c:29:ee:fe:e0 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    altname enp2s1</span><br><span class="line">    inet 172.16.214.5/24 brd 172.16.214.255 scope global dynamic noprefixroute ens33</span><br><span class="line">       valid_lft 53810sec preferred_lft 53810sec</span><br><span class="line">    inet6 fe80::fd8f:e0f5:1f03:57ac/64 scope link noprefixroute</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    RX: bytes  packets  errors  dropped overrun mcast</span><br><span class="line">    80.0M      138k     0       0       0       0</span><br><span class="line">    TX: bytes  packets  errors  dropped carrier collsns</span><br><span class="line">    113M       149k     0       0       0       0</span><br></pre></td></tr></table></figure>
+<p>字段与 <code>ifconfig</code> 基本类似。</p>
+<ul>
+<li><code>ip route</code>/<code>ip r</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ip route</span></span><br><span class="line">default via 172.16.214.1 dev ens33 proto dhcp metric 100</span><br><span class="line">169.254.0.0/16 dev ens33 scope link metric 1000</span><br><span class="line">172.16.214.0/24 dev ens33 proto kernel scope link src 172.16.214.5 metric 100</span><br><span class="line">172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1</span><br><span class="line">192.168.0.0 via 172.16.214.2 dev tunl0 proto bird onlink</span><br><span class="line">192.168.0.0/24 via 172.16.214.2 dev tunl0 proto bird onlink</span><br><span class="line">unreachable 192.168.1.0/24 proto bird</span><br><span class="line">unreachable 192.168.2.0/24 proto bird</span><br><span class="line">unreachable 192.168.3.0/24 proto bird</span><br><span class="line">blackhole 192.168.76.128/26 proto bird</span><br><span class="line">192.168.76.137 dev calie2066d21eda scope link</span><br><span class="line">192.168.76.138 dev cali3ef2c7cdd89 scope link</span><br><span class="line">192.168.76.139 dev calic440f455693 scope link</span><br><span class="line">192.168.109.64/26 via 172.16.214.3 dev tunl0 proto bird onlink</span><br><span class="line">192.168.140.64/26 via 172.16.214.4 dev tunl0 proto bird onlink</span><br><span class="line">192.168.235.192/26 via 172.16.214.2 dev tunl0 proto bird onlink</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>proto：路由协定<ul>
+<li>redirect 路由是由ICMP重定向加入的</li>
+<li>kernel 路由是由内核在自动配置期间加入的</li>
+<li>boot 路由是启动过程中加入的，如果一个路由监控程序将要启动，这些路由都会被清除；</li>
+<li>static 为了覆盖动态路由，由系统管理员手工添加的路由。路由监控程序也会优先考虑这类路由，甚至可能通告给其对端；</li>
+<li>ra 路由是通过路由发现协议加入的 (Router Discovery Protocol) </li>
+</ul>
+</li>
+<li>scope：路由的范围<ul>
+<li>link 与本设备有关的直接连接</li>
+</ul>
+</li>
+</ul>
+<h2 id="brctl"><a href="#brctl" class="headerlink" title="brctl"></a>brctl</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://ittroubleshooter.in/ifconfig-ip-command-tips-tricks">https://ittroubleshooter.in/ifconfig-ip-command-tips-tricks</a></li>
+<li><a target="_blank" rel="noopener" href="https://networkengineering.stackexchange.com/questions/57920/what-does-the-flag-and-mtu-means-in-here">https://networkengineering.stackexchange.com/questions/57920/what-does-the-flag-and-mtu-means-in-here</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.wumingx.com/linux/ipcommand.html">https://www.wumingx.com/linux/ipcommand.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/kikajack/article/details/80457841">https://blog.csdn.net/kikajack/article/details/80457841</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/what-is-a-routing-table/">https://www.cyberciti.biz/faq/what-is-a-routing-table/</a></li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>2.3 | kubernetes: Linux 常用网络命令的使用</p><p><a href="https://eucham.me/2021/10/16/983672269a29.html">https://eucham.me/2021/10/16/983672269a29.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>遇寻</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-10-16</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-04-21</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/kubernetes/">kubernetes</a><a class="link-muted mr-2" rel="tag" href="/tags/linux/">linux</a><a class="link-muted mr-2" rel="tag" href="/tags/%E7%BD%91%E7%BB%9C/">网络</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=5f548d5caad6e60013d63db8&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/03/23/2721dc98c09e.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">从动图来理解 Raft 协议关键概念</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/10/14/3c640a7f1fff.html"><span class="level-item">2.1 | kubernetes: 在裸机 Linux 上安装 k8s 集群</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://eucham.me/2021/10/16/983672269a29.html';
+            this.page.identifier = '2021/10/16/983672269a29.html';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'eucham' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/12/"><span class="level-start"><span class="level-item">十二月 2024</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/02/"><span class="level-start"><span class="level-item">二月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/01/"><span class="level-start"><span class="level-item">一月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/06/"><span class="level-start"><span class="level-item">六月 2023</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/02/"><span class="level-start"><span class="level-item">二月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/01/"><span class="level-start"><span class="level-item">一月 2023</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">十月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">八月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/07/"><span class="level-start"><span class="level-item">七月 2022</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">五月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">十月 2021</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/08/"><span class="level-start"><span class="level-item">八月 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">七月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/11/"><span class="level-start"><span class="level-item">十一月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">十月 2020</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/09/"><span class="level-start"><span class="level-item">九月 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/08/"><span class="level-start"><span class="level-item">八月 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/07/"><span class="level-start"><span class="level-item">七月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">六月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">五月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">四月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/03/"><span class="level-start"><span class="level-item">三月 2020</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/02/"><span class="level-start"><span class="level-item">二月 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/01/"><span class="level-start"><span class="level-item">一月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/12/"><span class="level-start"><span class="level-item">十二月 2019</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/11/"><span class="level-start"><span class="level-item">十一月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/10/"><span class="level-start"><span class="level-item">十月 2019</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/08/"><span class="level-start"><span class="level-item">八月 2019</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/07/"><span class="level-start"><span class="level-item">七月 2019</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/06/"><span class="level-start"><span class="level-item">六月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/05/"><span class="level-start"><span class="level-item">五月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/04/"><span class="level-start"><span class="level-item">四月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/03/"><span class="level-start"><span class="level-item">三月 2019</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/02/"><span class="level-start"><span class="level-item">二月 2019</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/01/"><span class="level-start"><span class="level-item">一月 2019</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/12/"><span class="level-start"><span class="level-item">十二月 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/11/"><span class="level-start"><span class="level-item">十一月 2018</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/09/"><span class="level-start"><span class="level-item">九月 2018</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/08/"><span class="level-start"><span class="level-item">八月 2018</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/07/"><span class="level-start"><span class="level-item">七月 2018</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/06/"><span class="level-start"><span class="level-item">六月 2018</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/05/"><span class="level-start"><span class="level-item">五月 2018</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/04/"><span class="level-start"><span class="level-item">四月 2018</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/03/"><span class="level-start"><span class="level-item">三月 2018</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/02/"><span class="level-start"><span class="level-item">二月 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/01/"><span class="level-start"><span class="level-item">一月 2018</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/12/"><span class="level-start"><span class="level-item">十二月 2017</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/10/"><span class="level-start"><span class="level-item">十月 2017</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/09/"><span class="level-start"><span class="level-item">九月 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/03/"><span class="level-start"><span class="level-item">三月 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/01/"><span class="level-start"><span class="level-item">一月 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/12/"><span class="level-start"><span class="level-item">十二月 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/249b2dc63505.html"><img src="/images/pics/5300c911560a8d2e0d745dcaf025d22f.jpg" alt="M系列MacBook连接l2tp时失败的问题修复"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/249b2dc63505.html">M系列MacBook连接l2tp时失败的问题修复</a></p><p class="categories"><a href="/categories/macOS/">macOS</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/e9036e8500f6.html"><img src="/images/thumbnails/rust-lang.png" alt="Rust学习笔记"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/e9036e8500f6.html">Rust学习笔记</a></p><p class="categories"><a href="/categories/Rust/">Rust</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/4948e86c1262.html"><img src="/images/pics/DrRvr9.jpg" alt="Calico证书学习笔记"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/4948e86c1262.html">Calico证书学习笔记</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/6dae87e31dc3.html"><img src="/images/pics/e9f22d889a230bfda8e24c0a981740a8.png" alt="如何在YAML文件中进行优雅地换行"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/6dae87e31dc3.html">如何在YAML文件中进行优雅地换行</a></p><p class="categories"><a href="/categories/Golang/">Golang</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/25470f32f4bb.html"><img src="/images/pics/kubernetes-cka-color.svg" alt="CKS证书学习资料汇编"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/25470f32f4bb.html">CKS证书学习资料汇编</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a></p></div></article></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://crisfang.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Cris</span></span><span class="level-right"><span class="level-item tag">crisfang.com</span></span></a></li><li><a class="level is-mobile" href="https://sanyuesha.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">三月沙</span></span><span class="level-right"><span class="level-item tag">sanyuesha.com</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png" alt="遇寻笔记" height="28"></a><p class="is-size-7"><span>&copy; 2024 遇寻</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="To Find Me" href="https://github.com/eucham"><i class="fab fa-github"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/in/eucham"><i class="fab fa-linkedin"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

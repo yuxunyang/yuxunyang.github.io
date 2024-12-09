@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>2024年CKS考试准备 - 遇寻笔记</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="遇寻笔记"><meta name="msapplication-TileImage" content="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="遇寻笔记"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Start : 2024.1.15 DDL1：2024.2.3 15:00 (Rescheduled) DDL2：2024.2.8 20:00 (Failed) DDL3:  2024.2.23 23:30 (Success)  学习环境搭建Install Calico CNI 12345678910111213141516171819# Other prerequisites# swap,br"><meta property="og:type" content="article"><meta property="og:title" content="2024年CKS考试准备"><meta property="og:url" content="https://eucham.me/2024/01/30/64634917304d.html"><meta property="og:site_name" content="遇寻笔记"><meta property="og:description" content="Start : 2024.1.15 DDL1：2024.2.3 15:00 (Rescheduled) DDL2：2024.2.8 20:00 (Failed) DDL3:  2024.2.23 23:30 (Success)  学习环境搭建Install Calico CNI 12345678910111213141516171819# Other prerequisites# swap,br"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://eucham.me/images/pics/kubernetes-cka-color.svg"><meta property="article:published_time" content="2024-01-30T06:39:01.000Z"><meta property="article:modified_time" content="2024-12-09T02:31:40.606Z"><meta property="article:author" content="遇寻"><meta property="article:tag" content="cks"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/images/pics/kubernetes-cka-color.svg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://eucham.me/2024/01/30/64634917304d.html"},"headline":"2024年CKS考试准备","image":[],"datePublished":"2024-01-30T06:39:01.000Z","dateModified":"2024-12-09T02:31:40.606Z","author":{"@type":"Person","name":"遇寻"},"publisher":{"@type":"Organization","name":"遇寻笔记","logo":{"@type":"ImageObject","url":"https://eucham.me/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png"}},"description":"Start : 2024.1.15 DDL1：2024.2.3 15:00 (Rescheduled) DDL2：2024.2.8 20:00 (Failed) DDL3:  2024.2.23 23:30 (Success)  学习环境搭建Install Calico CNI 12345678910111213141516171819# Other prerequisites# swap,br"}</script><link rel="canonical" href="https://eucham.me/2024/01/30/64634917304d.html"><link rel="icon" href="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?7d79380bb26079f6dd33da78e83cf2ab";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><meta name="generator" content="Hexo 5.4.2"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png" alt="遇寻笔记" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/categories/AI">AI</a><a class="navbar-item" href="/categories/Kubernetes">Kubernetes</a><a class="navbar-item" href="/categories/Openstack">Openstack</a><a class="navbar-item" href="/categories/Docker">Container</a><a class="navbar-item" href="/categories/Golang">Golang</a><a class="navbar-item" href="/categories/Rust">Rust</a><a class="navbar-item" href="/about.html">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="To Find Me" href="https://github.com/eucham"><i class="fab fa-github"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/in/eucham"><i class="fab fa-linkedin"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-01-30T06:39:01.000Z" title="1/30/2024, 2:39:01 PM">2024-01-30</time>发表</span><span class="level-item"><time dateTime="2024-12-09T02:31:40.606Z" title="12/9/2024, 10:31:40 AM">2024-12-09</time>更新</span><span class="level-item">38 分钟读完 (大约5691个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">2024年CKS考试准备</h1><div class="content"><blockquote>
+<p>Start : 2024.1.15</p>
+<p>DDL1：2024.2.3 15:00 (Rescheduled)</p>
+<p>DDL2：2024.2.8 20:00 (Failed)</p>
+<p>DDL3:  2024.2.23 23:30 (Success)</p>
+</blockquote>
+<h2 id="学习环境搭建"><a href="#学习环境搭建" class="headerlink" title="学习环境搭建"></a>学习环境搭建</h2><p><a target="_blank" rel="noopener" href="https://docs.tigera.io/calico/latest/getting-started/kubernetes/quickstart">Install Calico CNI</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Other prerequisites</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">swap,br_netfilter....</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Configure containerd</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">containerd config default | sed <span class="string">&#x27;s|SystemdCgroup = false|SystemdCgroup = true|g&#x27;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/containerd/config.toml &gt; /dev/null</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">sudo</span> systemctl restart containerd &amp;&amp; systemctl status containerd</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Hosts</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;127.0.0.1 kube.multipass.local&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/hosts &gt; /dev/null</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Initialize Kubernetes cluster</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubeadm init --pod-network-cidr=10.244.0.0/16 --control-plane-endpoint kube.multipass.local</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">untaint master node</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get node --no-headers | grep control-plane | awk <span class="string">&#x27;&#123;cmd=&quot;kubectl taint node &quot;$1&quot; node-role.kubernetes.io/control-plane-&quot;;system(cmd)&#125;&#x27;</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Install Calico CNI <span class="built_in">which</span> supports Network Policy</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/tigera-operator.yaml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">curl https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/custom-resources.yaml | sed <span class="string">&#x27;s|192.168|10.244|g&#x27;</span> | kubectl apply -f -</span></span><br></pre></td></tr></table></figure>
+
+<p>There may be lots of impediments to setting up this kubernetes cluster successfully due to network conditions or some misconfigurations, but those above can be solved step by step. Finally, node(s) is(are) ready as follows:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get node</span></span><br><span class="line">NAME          STATUS   ROLES           AGE   VERSION</span><br><span class="line">kube-master   Ready    control-plane   21m   v1.28.3</span><br></pre></td></tr></table></figure>
+
+<h2 id="做题工具"><a href="#做题工具" class="headerlink" title="做题工具"></a>做题工具</h2><h3 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias k=kubectl                         # will already be pre-configured</span><br><span class="line">export do=&quot;--dry-run=client -o yaml&quot;    # k create deploy nginx --image=nginx $do</span><br><span class="line">export now=&quot;--force --grace-period 0&quot;   # k delete pod x $now</span><br></pre></td></tr></table></figure>
+
+<h3 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set tabstop=2</span><br><span class="line">set expandtab</span><br><span class="line">set shiftwidth=2</span><br></pre></td></tr></table></figure>
+
+<h3 id="jsonpath"><a href="#jsonpath" class="headerlink" title="jsonpath"></a>jsonpath</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/kubectl/jsonpath/">https://kubernetes.io/docs/reference/kubectl/jsonpath/</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+<th>Example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>text</code></td>
+<td>the plain text</td>
+<td><code>kind is &#123;.kind&#125;</code></td>
+<td><code>kind is List</code></td>
+</tr>
+<tr>
+<td><code>@</code></td>
+<td>the current object</td>
+<td><code>&#123;@&#125;</code></td>
+<td>the same as input</td>
+</tr>
+<tr>
+<td><code>.</code> or <code>[]</code></td>
+<td>child operator</td>
+<td><code>&#123;.kind&#125;</code>, <code>&#123;[&#39;kind&#39;]&#125;</code> or <code>&#123;[&#39;name\.type&#39;]&#125;</code></td>
+<td><code>List</code></td>
+</tr>
+<tr>
+<td><code>..</code></td>
+<td>recursive descent</td>
+<td><code>&#123;..name&#125;</code></td>
+<td><code>127.0.0.1 127.0.0.2 myself e2e</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>wildcard. Get all objects</td>
+<td><code>&#123;.items[*].metadata.name&#125;</code></td>
+<td><code>[127.0.0.1 127.0.0.2]</code></td>
+</tr>
+<tr>
+<td><code>[start:end:step]</code></td>
+<td>subscript operator</td>
+<td><code>&#123;.users[0].name&#125;</code></td>
+<td><code>myself</code></td>
+</tr>
+<tr>
+<td><code>[,]</code></td>
+<td>union operator</td>
+<td><code>&#123;.items[*][&#39;metadata.name&#39;, &#39;status.capacity&#39;]&#125;</code></td>
+<td><code>127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]</code></td>
+</tr>
+<tr>
+<td><code>?()</code></td>
+<td>filter</td>
+<td><code>&#123;.users[?(@.name==&quot;e2e&quot;)].user.password&#125;</code></td>
+<td><code>secret</code></td>
+</tr>
+<tr>
+<td><code>range</code>, <code>end</code></td>
+<td>iterate list</td>
+<td><code>&#123;range .items[*]&#125;[&#123;.metadata.name&#125;, &#123;.status.capacity&#125;] &#123;end&#125;</code></td>
+<td><code>[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]</code></td>
+</tr>
+<tr>
+<td><code>&#39;&#39;</code></td>
+<td>quote interpreted string</td>
+<td><code>&#123;range .items[*]&#125;&#123;.metadata.name&#125;&#123;&#39;\t&#39;&#125;&#123;end&#125;</code></td>
+<td><code>127.0.0.1 127.0.0.2</code></td>
+</tr>
+<tr>
+<td><code>\</code></td>
+<td>escape termination character</td>
+<td><code>&#123;.items[0].metadata.labels.kubernetes\.io/hostname&#125;</code></td>
+<td><code>127.0.0.1</code></td>
+</tr>
+</tbody></table>
+<p>Examples using <code>kubectl</code> and JSONPath expressions:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods -o json</span><br><span class="line">kubectl get pods -o=jsonpath=&#x27;&#123;@&#125;&#x27;</span><br><span class="line">kubectl get pods -o=jsonpath=&#x27;&#123;.items[0]&#125;&#x27;</span><br><span class="line">kubectl get pods -o=jsonpath=&#x27;&#123;.items[0].metadata.name&#125;&#x27;</span><br><span class="line">kubectl get pods -o=jsonpath=&quot;&#123;.items[*][&#x27;metadata.name&#x27;, &#x27;status.capacity&#x27;]&#125;&quot;</span><br><span class="line">kubectl get pods -o=jsonpath=&#x27;&#123;range .items[*]&#125;&#123;.metadata.name&#125;&#123;&quot;\t&quot;&#125;&#123;.status.startTime&#125;&#123;&quot;\n&quot;&#125;&#123;end&#125;&#x27;</span><br><span class="line">kubectl get pods -o=jsonpath=&#x27;&#123;.items[0].metadata.labels.kubernetes\.io/hostname&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="yq"><a href="#yq" class="headerlink" title="yq"></a>yq</h3><p>examples</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Read a value</span></span><br><span class="line">yq &#x27;.a.b[0].c&#x27; file.yaml</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Pipe from STDIN</span></span><br><span class="line">yq &#x27;.a.b[0].c&#x27; &lt; file.yaml</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Update a yaml file, <span class="keyword">in</span> place</span></span><br><span class="line">yq -i &#x27;.a.b[0].c = &quot;cool&quot;&#x27; file.yaml</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Find and update an item <span class="keyword">in</span> an array</span></span><br><span class="line">yq &#x27;(.[] | select(.name == &quot;foo&quot;) | .address) = &quot;12 cat st&quot;&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>jq</li>
+<li>tr</li>
+<li>truncate</li>
+<li>crictl</li>
+<li>cut</li>
+</ul>
+<h3 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h3><p>常规使用</p>
+<p>组装命令并执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc | awk &#x27;&#123;cmd=&quot;kubectl get svc &quot;$1&quot; -oyaml&quot;;system(cmd)&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>sed</li>
+<li>sha512sum</li>
+<li>podman(to build image)</li>
+</ul>
+<h3 id="日志查看"><a href="#日志查看" class="headerlink" title="日志查看"></a>日志查看</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/cluster-administration/logging/#system-component-logs">https://kubernetes.io/docs/concepts/cluster-administration/logging/#system-component-logs</a></p>
+</blockquote>
+<ul>
+<li><p>对 kubelet 组件：<code>journalctl -xefu kubelet</code></p>
+</li>
+<li><p>对以容器形式启动的 kubernetes 组件：在<code>/var/log/pods</code>下（当把kube-apiserver的yaml弄坏起不来之后，应该可以在这个目录下查看启动失败的原因）</p>
+</li>
+</ul>
+<h3 id="group缩写问题"><a href="#group缩写问题" class="headerlink" title="group缩写问题"></a>group缩写问题</h3><p>group为空时表示<code>core</code> group，此时的 gv 缩写只有 v，即</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl api-resources --api-group=<span class="string">&#x27;&#x27;</span></span></span><br><span class="line">NAME                     SHORTNAMES   APIVERSION   NAMESPACED   KIND</span><br><span class="line">bindings                              v1           true         Binding</span><br><span class="line">componentstatuses        cs           v1           false        ComponentStatus</span><br><span class="line">configmaps               cm           v1           true         ConfigMap</span><br><span class="line">endpoints                ep           v1           true         Endpoints</span><br><span class="line">events                   ev           v1           true         Event</span><br><span class="line">limitranges              limits       v1           true         LimitRange</span><br><span class="line">namespaces               ns           v1           false        Namespace</span><br><span class="line">nodes                    no           v1           false        Node</span><br><span class="line">persistentvolumeclaims   pvc          v1           true         PersistentVolumeClaim</span><br><span class="line">persistentvolumes        pv           v1           false        PersistentVolume</span><br><span class="line">pods                     po           v1           true         Pod</span><br><span class="line">podtemplates                          v1           true         PodTemplate</span><br><span class="line">replicationcontrollers   rc           v1           true         ReplicationController</span><br><span class="line">resourcequotas           quota        v1           true         ResourceQuota</span><br><span class="line">secrets                               v1           true         Secret</span><br><span class="line">serviceaccounts          sa           v1           true         ServiceAccount</span><br><span class="line">services                 svc          v1           true         Service</span><br></pre></td></tr></table></figure>
+
+<p>常见的控制器资源基本属于<code>apps</code> group</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NAME                  SHORTNAMES   APIVERSION   NAMESPACED   KIND</span><br><span class="line">controllerrevisions                apps/v1      true         ControllerRevision</span><br><span class="line">daemonsets            ds           apps/v1      true         DaemonSet</span><br><span class="line">deployments           deploy       apps/v1      true         Deployment</span><br><span class="line">replicasets           rs           apps/v1      true         ReplicaSet</span><br><span class="line">statefulsets          sts          apps/v1      true         StatefulSet</span><br></pre></td></tr></table></figure>
+
+<p>常见的几种需要填充group的地方</p>
+<ul>
+<li><p>rbac</p>
+<p><code>role.rules.apiGroups</code> 只需要填写group</p>
+</li>
+<li><p>audit policy</p>
+<p><code>rules.resources.group</code> 只需要填写group</p>
+</li>
+</ul>
+<h2 id="做题方法论"><a href="#做题方法论" class="headerlink" title="做题方法论"></a>做题方法论</h2><p>客观局限</p>
+<ol>
+<li>网络卡顿，导致做题时及其不流畅；</li>
+<li>题量大，总共有<code>16</code>道题，需要在<code>120</code>分钟内完成，完成一道题的平局时间应该120/16=<code>7</code>分钟；</li>
+</ol>
+<p>主观局限</p>
+<ol>
+<li>对安全相关的操作不熟练；</li>
+<li>无做题策略，选择按顺序，从头做到尾；</li>
+<li>开始做题前，未对该题进行自我评估，不确定能否短时间内搞定，做了一半，发现搞不定，非常浪费时间；</li>
+</ol>
+<p>改进措施</p>
+<ol>
+<li>改用香港/澳门移动网络漫游来做题（如果这次还是考不过，有网络卡顿的原因，下次得肉身跑到香港去了23333）；</li>
+<li>及格分数需要<code>67</code>，粗略估计取得证书，需要做完<em>67/(100/16)</em>=<code>11</code>道题，可以允许<code>5</code>道题不做，但每题的平均用时为<code>10</code>分钟多一点。</li>
+<li>做题步骤<ol>
+<li>花<code>1</code>分钟浏览全题，理解题意，并评估是否有把握能完成；</li>
+<li>没把握的用flag标记，跳过，下一题；</li>
+</ol>
+</li>
+<li>优先去做的题目类型<ol>
+<li>audit policy</li>
+<li><strong>apparmor</strong></li>
+<li>pod security standard</li>
+<li><strong>runtime class</strong></li>
+<li>image policy webhook</li>
+<li><strong>trivy</strong> &amp; kube-bench</li>
+<li>rbac &amp; opa</li>
+<li><strong>secret</strong></li>
+<li><strong>security context</strong></li>
+</ol>
+</li>
+</ol>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><h3 id="RBAC"><a href="#RBAC" class="headerlink" title="RBAC"></a>RBAC</h3><blockquote>
+<p>Reference: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/">https://kubernetes.io/docs/reference/access-authn-authz/rbac/</a></p>
+</blockquote>
+<p>创建sa、role、rolebinding</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl create sa shs-sa</span><br><span class="line">kubectl create role shs-role --resource=pods,secrets --verb=*</span><br><span class="line">kubectl create rolebinding shs-rolebinding --role=shs-role --serviceaccount=default:shs-sa</span><br></pre></td></tr></table></figure>
+
+<p>使用该ServiceAccount</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl patch -p &#x27;&#123;&quot;spec&quot;:&#123;&quot;template&quot;:&#123;&quot;spec&quot;:&#123;&quot;serviceAccountName&quot;:&quot;shs-saax&quot;,&quot;serviceAccount&quot;:&quot;shs-saax&quot;&#125;&#125;&#125;&#125;&#x27; deployment shs-dep</span><br></pre></td></tr></table></figure>
+
+<p>Tips:</p>
+<ol>
+<li>如果sa异常（如：不存在），则deployment的pod不会建出来，因为rs控制器已经检测到了异常，所以未建pod。</li>
+<li><code>deploy.spec.template.spec.serviceAccount</code> 与 <code>deploy.spec.template.spec.serviceAccountName</code> 都需要修改。</li>
+</ol>
+<h3 id="NetworkPolicy"><a href="#NetworkPolicy" class="headerlink" title="NetworkPolicy"></a>NetworkPolicy</h3><h4 id="Pod-Isolation"><a href="#Pod-Isolation" class="headerlink" title="Pod Isolation"></a>Pod Isolation</h4><ul>
+<li>Egress, outbound connection from pod, non-isolated by default. If NetworkPolicy selects this pod and was <code>Egress</code> type, then only out connections mentioned in it allowed. If lots of NetworkPolicy select the same pod, then all connections mentoined in those list are allowed. Additive. </li>
+<li>Ingress, inbound connection to pod, non-isolated by default. Effects are as the same as Egress. Only connections mentioned by NetworkPolicy can connect to this Pod successfully.<br>Examples</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-network-policy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="comment"># Indicates which pods this NetworkPolicy will apply to, selecting by pod&#x27;s label</span></span><br><span class="line">  <span class="comment"># podSelector: &#123;&#125; indicates this NetworkPolicy apply to all pods in default ns.</span></span><br><span class="line">  <span class="attr">podSelector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">role:</span> <span class="string">db</span></span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Ingress</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Egress</span></span><br><span class="line">  <span class="comment"># Defines which pod can connect to this pod.</span></span><br><span class="line">  <span class="attr">ingress:</span></span><br><span class="line">  <span class="comment"># both `from` and `port` rules are satitisfied, then allowed</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">from:</span></span><br><span class="line">        <span class="comment"># 1. IP CIDR, connections from pod whose IP in this CIDR are allowd to connect</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">ipBlock:</span></span><br><span class="line">            <span class="attr">cidr:</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.0</span><span class="string">/16</span></span><br><span class="line">            <span class="attr">except:</span></span><br><span class="line">              <span class="bullet">-</span> <span class="number">172.17</span><span class="number">.1</span><span class="number">.0</span><span class="string">/24</span></span><br><span class="line">        <span class="comment"># 2. Namespace, connection from pod whose namespace has following labels are allowed to connect</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">namespaceSelector:</span></span><br><span class="line">            <span class="attr">matchLabels:</span></span><br><span class="line">              <span class="attr">project:</span> <span class="string">myproject</span></span><br><span class="line">        <span class="comment"># 3. Pod, connections from pod which has following labels are allowed to connect</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">podSelector:</span></span><br><span class="line">            <span class="attr">matchLabels:</span></span><br><span class="line">              <span class="attr">role:</span> <span class="string">frontend</span></span><br><span class="line">     <span class="comment"># Based on `from`, if the target port of those connection was 6379 and protocl was TCP, allowed.</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">          <span class="attr">port:</span> <span class="number">6379</span></span><br><span class="line">  <span class="comment"># Defines which pod can be connected by this pod</span></span><br><span class="line">  <span class="comment"># both `to` and `port` rules are satitisfied, then allowed</span></span><br><span class="line">  <span class="attr">egress:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">to:</span></span><br><span class="line">       <span class="comment"># 1. Connections from this pod can connect to this CIDR</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">ipBlock:</span></span><br><span class="line">            <span class="attr">cidr:</span> <span class="number">10.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">/24</span></span><br><span class="line">      <span class="comment"># Based on `to`, if the target port and protocol of this connection was 5978 and TCP, allowed.</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">          <span class="attr">port:</span> <span class="number">5978</span></span><br></pre></td></tr></table></figure>
+
+<p>parameters of <code>to</code> and <code>from</code> was the same, as follows(irrelevant informations are omitted):</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl explain networkpolicy.spec.ingress</span></span><br><span class="line">  from	&lt;[]NetworkPolicyPeer&gt;</span><br><span class="line">  ports	&lt;[]NetworkPolicyPort&gt;</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl explain networkpolicy.spec.egress</span></span><br><span class="line">   to	 &lt;[]NetworkPolicyPeer&gt;</span><br><span class="line">   ports &lt;[]NetworkPolicyPort&gt;</span><br></pre></td></tr></table></figure>
+
+<p>details of <code>NetworkPolicyPeer</code> are as follows:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl explain networkpolicy.spec.egress.to</span></span><br><span class="line">  ipBlock	&lt;IPBlock&gt;</span><br><span class="line">  namespaceSelector	&lt;LabelSelector&gt;</span><br><span class="line">  podSelector	&lt;LabelSelector&gt;</span><br></pre></td></tr></table></figure>
+
+<p>As for details of <code>IPBlock</code> and <code>LabelSelector</code>, just <code>kubectl explain</code> before coding yamls.</p>
+<h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h4><ul>
+<li><code>NetworkPolicy</code> was namespaced, and only works in the namespace to which it belongs.</li>
+<li><code>NetworkPolicy</code> can define only allowed rules.</li>
+<li><code>NetworkPolicy</code> selects pod by labels only.</li>
+</ul>
+<h4 id="Default-network-policy"><a href="#Default-network-policy" class="headerlink" title="Default network policy"></a>Default network policy</h4><p>Deny all in &amp; out bound traffics for a pod</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">default-deny-all</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ingress</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Egress</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="The-OPA-Open-Policy-Agent-Gatekeeper"><a href="#The-OPA-Open-Policy-Agent-Gatekeeper" class="headerlink" title="The OPA(Open Policy Agent) Gatekeeper"></a>The OPA(Open Policy Agent) Gatekeeper</h3><blockquote>
+<p>Ref: <a target="_blank" rel="noopener" href="https://kubernetes.io/blog/2019/08/06/opa-gatekeeper-policy-and-governance-for-kubernetes">https://kubernetes.io/blog/2019/08/06/opa-gatekeeper-policy-and-governance-for-kubernetes</a></p>
+</blockquote>
+<p>gatekeeper admission controller 拦截所有资源的创建、更新、删除请求，并针对相关资源，做所配置的校验。</p>
+<h4 id="定义校验模板"><a href="#定义校验模板" class="headerlink" title="定义校验模板"></a>定义校验模板</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">templates.gatekeeper.sh/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConstraintTemplate</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">k8srequiredlabels</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">crd:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">names:</span></span><br><span class="line">        <span class="attr">kind:</span> <span class="string">K8sRequiredLabels</span></span><br><span class="line">        <span class="attr">listKind:</span> <span class="string">K8sRequiredLabelsList</span></span><br><span class="line">        <span class="attr">plural:</span> <span class="string">k8srequiredlabels</span></span><br><span class="line">        <span class="attr">singular:</span> <span class="string">k8srequiredlabels</span></span><br><span class="line">      <span class="attr">validation:</span></span><br><span class="line">        <span class="comment"># Schema for the `parameters` field</span></span><br><span class="line">        <span class="attr">openAPIV3Schema:</span></span><br><span class="line">          <span class="attr">properties:</span></span><br><span class="line">            <span class="attr">labels:</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">array</span></span><br><span class="line">              <span class="attr">items:</span> <span class="string">string</span></span><br><span class="line">  <span class="attr">targets:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">target:</span> <span class="string">admission.k8s.gatekeeper.sh</span></span><br><span class="line">      <span class="attr">rego:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        package k8srequiredlabels</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">        <span class="string">deny[&#123;&quot;msg&quot;:</span> <span class="string">msg,</span> <span class="attr">&quot;details&quot;:</span> &#123;<span class="attr">&quot;missing_labels&quot;:</span> <span class="string">missing</span>&#125;<span class="string">&#125;]</span> &#123;</span><br><span class="line">          <span class="string">provided</span> <span class="string">:=</span> &#123;<span class="string">label</span> <span class="string">|</span> <span class="string">input.review.object.metadata.labels</span>[<span class="string">label</span>]&#125;</span><br><span class="line">          <span class="string">required</span> <span class="string">:=</span> &#123;<span class="string">label</span> <span class="string">|</span> <span class="string">label</span> <span class="string">:=</span> <span class="string">input.parameters.labels</span>[<span class="string">_</span>]&#125;</span><br><span class="line">          <span class="string">missing</span> <span class="string">:=</span> <span class="string">required</span> <span class="bullet">-</span> <span class="string">provided</span></span><br><span class="line">          <span class="string">count(missing)</span> <span class="string">&gt;</span> <span class="number">0</span></span><br><span class="line">          <span class="string">msg</span> <span class="string">:=</span> <span class="string">sprintf(&quot;you</span> <span class="attr">must provide labels:</span> <span class="string">%v&quot;</span>, [<span class="string">missing</span>]<span class="string">)</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建具体约束"><a href="#创建具体约束" class="headerlink" title="创建具体约束"></a>创建具体约束</h4><p>每个命名空间都需要一个标签<code>hr</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">constraints.gatekeeper.sh/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">K8sRequiredLabels</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ns-must-have-hr</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">match:</span></span><br><span class="line">    <span class="attr">kinds:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">        <span class="attr">kinds:</span> [<span class="string">&quot;Namespace&quot;</span>]</span><br><span class="line">  <span class="attr">parameters:</span></span><br><span class="line">    <span class="attr">labels:</span> [<span class="string">&quot;hr&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="审计"><a href="#审计" class="headerlink" title="审计"></a>审计</h4><p>Gatekeeper stores audit results as <code>violations</code> listed in the <code>status</code> field of the relevant Constraint.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">constraints.gatekeeper.sh/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">K8sRequiredLabels</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ns-must-have-hr</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">match:</span></span><br><span class="line">    <span class="attr">kinds:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">        <span class="attr">kinds:</span> [<span class="string">&quot;Namespace&quot;</span>]</span><br><span class="line">  <span class="attr">parameters:</span></span><br><span class="line">    <span class="attr">labels:</span> [<span class="string">&quot;hr&quot;</span>]</span><br><span class="line"><span class="attr">status:</span></span><br><span class="line">  <span class="comment">#...</span></span><br><span class="line">  <span class="attr">violations:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">enforcementAction:</span> <span class="string">deny</span></span><br><span class="line">    <span class="attr">kind:</span> <span class="string">Namespace</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">&#x27;you must provide labels: &#123;&quot;hr&quot;&#125;&#x27;</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">default</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">enforcementAction:</span> <span class="string">deny</span></span><br><span class="line">    <span class="attr">kind:</span> <span class="string">Namespace</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">&#x27;you must provide labels: &#123;&quot;hr&quot;&#125;&#x27;</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">gatekeeper-system</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">enforcementAction:</span> <span class="string">deny</span></span><br><span class="line">    <span class="attr">kind:</span> <span class="string">Namespace</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">&#x27;you must provide labels: &#123;&quot;hr&quot;&#125;&#x27;</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">kube-public</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">enforcementAction:</span> <span class="string">deny</span></span><br><span class="line">    <span class="attr">kind:</span> <span class="string">Namespace</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">&#x27;you must provide labels: &#123;&quot;hr&quot;&#125;&#x27;</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">kube-system</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Apparmor"><a href="#Apparmor" class="headerlink" title="Apparmor"></a>Apparmor</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tutorials/security/apparmor/">https://kubernetes.io/docs/tutorials/security/apparmor/</a></p>
+</blockquote>
+<p>Confine programs or containers to limited set of resources, such as Linux capabilities, network access, file permissions, etc.</p>
+<h4 id="Works-in-2-Modes"><a href="#Works-in-2-Modes" class="headerlink" title="Works in 2 Modes"></a>Works in 2 Modes</h4><ul>
+<li>enforcing, blocks access</li>
+<li>complain, only reports invalid access</li>
+</ul>
+<h4 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h4><ul>
+<li>works on kubernetes v1.4 +</li>
+<li>AppArmor kernel moduls enabled</li>
+<li>Container Runtime supports AppArmor</li>
+<li>Profile is loaded by kernel</li>
+</ul>
+<h4 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h4><p>Add annotations to pod which needed to be secured with key, name of container in Pod should be referred in key: </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">container.apparmor.security.beta.kubernetes.io/&lt;container_name&gt;:</span> <span class="string">&lt;profile_ref&gt;</span></span><br><span class="line"><span class="string">container.apparmor.security.beta.kubernetes.io/&lt;container_name&gt;:</span> <span class="string">&lt;profile_ref&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>The <code>profile_ref</code> can be one of:</p>
+<ul>
+<li><code>runtime/default</code> to apply the runtime’s default profile</li>
+<li><code>localhost/&lt;profile_name&gt;</code> to apply the profile loaded on the host with the name <code>&lt;profile_name&gt;</code></li>
+<li><code>unconfined</code> to indicate that no profiles will be loaded</li>
+</ul>
+<h4 id="Works"><a href="#Works" class="headerlink" title="Works"></a>Works</h4><ul>
+<li>View Pod Events</li>
+<li><code>kubectl exec &lt;pod_name&gt; -- cat /proc/1/attr/current</code></li>
+</ul>
+<h4 id="Helpful-commands"><a href="#Helpful-commands" class="headerlink" title="Helpful commands"></a>Helpful commands</h4><ul>
+<li>Show AppArmor Status</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">apparmor_status</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Load Profile to kernel</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">apparmor_parser /etc/apparmor.d/nginx_apparmor</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">sudo</span> apparmor_parser -q &lt;&lt;<span class="string">EOF</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="string">include &lt;tunables/global&gt;</span></span></span><br><span class="line"></span><br><span class="line">profile k8s-apparmor-example-deny-write flags=(attach_disconnected) &#123;</span><br><span class="line"><span class="meta prompt_">  #</span><span class="language-bash"><span class="string">include &lt;abstractions/base&gt;</span></span></span><br><span class="line"></span><br><span class="line">  file,</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash"><span class="string">Deny all file writes.</span></span></span><br><span class="line">  deny /** w,</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h3 id="Audit-Policy"><a href="#Audit-Policy" class="headerlink" title="Audit Policy"></a>Audit Policy</h3><blockquote>
+<p>Reference: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy">https://kubernetes.io/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy</a></p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/">Getting Started</a></p>
+<h4 id="Stage"><a href="#Stage" class="headerlink" title="Stage"></a>Stage</h4><ul>
+<li><code>RequestReceived</code> - Before handled by handler chain</li>
+<li><code>ResponseStarted</code> - After response header sent, but before response body sent</li>
+<li><code>ResponseComplete</code> - After response body sent</li>
+<li><code>Panic</code> - After panic occurred.</li>
+</ul>
+<h4 id="Audit-Level"><a href="#Audit-Level" class="headerlink" title="Audit Level"></a>Audit Level</h4><ul>
+<li><code>None</code> - don’t log events that match this rule</li>
+<li><code>Metadata</code> - log request metadata only(user, timestamp,resource,vert) but not request or response body.</li>
+<li><code>Request</code> - log event metadata plus request body</li>
+<li><code>RequestResponse</code> - log event metadata plus request, response bodies.</li>
+</ul>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">audit.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Policy</span></span><br><span class="line"><span class="attr">omitStages:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">ResponseStarted</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">ResponseComplete</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Panic</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">level:</span> <span class="string">Metadata</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">group:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>Configure it to kube-apiserver, see audit log. </p>
+<h4 id="Tips-1"><a href="#Tips-1" class="headerlink" title="Tips"></a>Tips</h4><p>If the <code>Policy</code> doesn’t work as expected, check kube-apiserver logs as below, make sure the <code>Policy</code> was loaded successfully. Since it seems to load a default <code>AuditPolicy</code> when failled to load the <code>AuditPolicy</code> passed in parameters of kube-apiserver. Logs are as below:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">W0122 16:00:29.139016       1 reader.go:81] Audit policy contains errors, falling back to lenient decoding: strict decoding error: unknown field &quot;rules[0].resources[0].resource&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Pod-Security-Standard"><a href="#Pod-Security-Standard" class="headerlink" title="Pod Security Standard"></a>Pod Security Standard</h3><blockquote>
+<p>Reference</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/security/pod-security-standards">https://kubernetes.io/docs/concepts/security/pod-security-standards</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/security/pod-security-admission">https://kubernetes.io/docs/concepts/security/pod-security-admission</a></li>
+</ul>
+</blockquote>
+<h4 id="Policies"><a href="#Policies" class="headerlink" title="Policies"></a>Policies</h4><p>The Pod Security Standards define three different <em>policies</em> to broadly cover the security spectrum. These policies are <em>cumulative</em> and range from highly-permissive to highly-restrictive. This guide outlines the requirements of each policy.</p>
+<p>3种策略，每种策略只是定义了检查、校验哪些字段、即校验范围。此3种策略，从上至下，校验范围依次增大。具体校验内容，可参考文档。</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Privileged</strong></td>
+<td>Unrestricted policy, providing the widest possible level of permissions. This policy allows for known privilege escalations.</td>
+</tr>
+<tr>
+<td><strong>Baseline</strong></td>
+<td>Minimally restrictive policy which prevents known privilege escalations. Allows the default (minimally specified) Pod configuration.</td>
+</tr>
+<tr>
+<td><strong>Restricted</strong></td>
+<td>Heavily restricted policy, following current Pod hardening best practices.</td>
+</tr>
+</tbody></table>
+<h4 id="Levels"><a href="#Levels" class="headerlink" title="Levels"></a>Levels</h4><p>有3种针对不符合上述3种Policy的处理方式，即<em>强制要求（否则拒绝创建）</em>、<em>记录到审计日志中</em>、<em>用户可见警告</em>。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Mode</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>enforce</strong></td>
+<td align="left">Policy violations will cause the pod to be rejected.</td>
+</tr>
+<tr>
+<td align="left"><strong>audit</strong></td>
+<td align="left">Policy violations will trigger the addition of an audit annotation to the event recorded in the <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/">audit log</a>, but are otherwise allowed.</td>
+</tr>
+<tr>
+<td align="left"><strong>warn</strong></td>
+<td align="left">Policy violations will trigger a user-facing warning, but are otherwise allowed.</td>
+</tr>
+</tbody></table>
+<h4 id="Usage-1"><a href="#Usage-1" class="headerlink" title="Usage"></a>Usage</h4><p>在命名空间上打标签</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The per-mode level label indicates which policy level to apply for the mode.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># MODE must be one of `enforce`, `audit`, or `warn`.</span></span><br><span class="line"><span class="comment"># LEVEL must be one of `privileged`, `baseline`, or `restricted`.</span></span><br><span class="line"><span class="string">pod-security.kubernetes.io/&lt;MODE&gt;:</span> <span class="string">&lt;LEVEL&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Optional: per-mode version label that can be used to pin the policy to the</span></span><br><span class="line"><span class="comment"># version that shipped with a given Kubernetes minor version (for example v1.29).</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># MODE must be one of `enforce`, `audit`, or `warn`.</span></span><br><span class="line"><span class="comment"># VERSION must be a valid Kubernetes minor version, or `latest`.</span></span><br><span class="line"><span class="string">pod-security.kubernetes.io/&lt;MODE&gt;-version:</span> <span class="string">&lt;VERSION&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="SecurityContext"><a href="#SecurityContext" class="headerlink" title="SecurityContext"></a>SecurityContext</h3><blockquote>
+<p>Reference: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/">https://kubernetes.io/docs/tasks/configure-pod-container/security-context/</a></p>
+</blockquote>
+<p>总共有两个安全配置的地方，位置分别为</p>
+<ul>
+<li><code>pod.spec.securityContext</code> 属于 <code>PodSecurityContext</code> 这个结构体，表示pod中所有的容器都使用这个配置；</li>
+<li><code>pod.spec[&quot;initContainers&quot;,&quot;containers&quot;].securityContext</code> 属于 <code>SecurityContext</code> 这个结构体，只限于当前容器使用此配置，且优先级高于上面的配置。</li>
+</ul>
+<p>上述两种不同位置的安全配置中，有的字段是重复的，<code>SecurityContext</code> 的优先级更高。两者之间值的差异（都存在的字段已加粗）：</p>
+<table>
+<thead>
+<tr>
+<th>PodSecurityContext</th>
+<th>SecurityContext</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fsGroup</td>
+<td>allowPrivilegeEscalation</td>
+</tr>
+<tr>
+<td>fsGroupChangePolicy</td>
+<td>capabilities</td>
+</tr>
+<tr>
+<td><strong>runAsGroup</strong></td>
+<td>privileged</td>
+</tr>
+<tr>
+<td><strong>runAsNonRoot</strong></td>
+<td>procMount</td>
+</tr>
+<tr>
+<td><strong>runAsUser</strong></td>
+<td>readOnlyRootFilesystem</td>
+</tr>
+<tr>
+<td><strong>seLinuxOptions</strong></td>
+<td><strong>runAsGroup</strong></td>
+</tr>
+<tr>
+<td><strong>seccompProfile</strong></td>
+<td><strong>runAsNonRoot</strong></td>
+</tr>
+<tr>
+<td>supplementalGroups</td>
+<td><strong>runAsUser</strong></td>
+</tr>
+<tr>
+<td>sysctls</td>
+<td><strong>seLinuxOptions</strong></td>
+</tr>
+<tr>
+<td><strong>windowsOptions</strong></td>
+<td><strong>seccompProfile</strong></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>windowsOptions</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.mrdadong.com/archives/cks-securitycontext">https://www.mrdadong.com/archives/cks-securitycontext</a></p>
+</blockquote>
+<p><em>按照如下要求修改 <code>sec-ns</code> 命名空间里的 Deployment <code>secdep</code></em></p>
+<p><em>一、用 ID 为 30000 的用户启动容器（设置用户 ID 为: 30000 <code>runAsUser</code>）</em></p>
+<p><em>二、不允许进程获得超出其父进程的特权（禁止 <code>allowPrivilegeEscalation</code>）</em></p>
+<p><em>三、以只读方式加载容器的根文件系统（对根文件的只读权限<code>readOnlyRootFilesystem</code>）</em></p>
+<p>注意点：</p>
+<ol>
+<li> <code>readOnlyRootFilesystem</code> 和 <code>allowPrivilegeEscalation</code> 只存在于<code>SecurityContext</code>中，因此需要为各个容器都配置上，需注意容器数量，避免漏配；</li>
+<li><code>runAsUser</code> 存在于<code>PodSecurityContext</code> 和<code>SecurityContext</code>中，可只配 <code>PodSecurityContext</code></li>
+</ol>
+<h3 id="RuntimeClass"><a href="#RuntimeClass" class="headerlink" title="RuntimeClass"></a>RuntimeClass</h3><blockquote>
+<p>Reference: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/containers/runtime-class/">https://kubernetes.io/docs/concepts/containers/runtime-class/</a></p>
+</blockquote>
+<ul>
+<li>Create <code>RuntimeClass</code></li>
+<li>Specify created <code>RuntimeClass</code> in <code>pod.spec.runtimeClassName</code></li>
+</ul>
+<h3 id="Secret"><a href="#Secret" class="headerlink" title="Secret"></a>Secret</h3><blockquote>
+<p>Reference: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/configuration/secret">https://kubernetes.io/docs/concepts/configuration/secret</a></p>
+</blockquote>
+<ul>
+<li>Secret Type</li>
+<li>Mount to a pod</li>
+</ul>
+<hr>
+<blockquote>
+<p>练手速<a target="_blank" rel="noopener" href="https://www.mrdadong.com/archives/cks-Secret">【来源】</a></p>
+</blockquote>
+<ol>
+<li><p>在 namespace <code>istio-system</code> 中获取名为 <code>db1-test</code> 的现有 secret 的内容。将 username 字段存储在名为 <code>/cks/sec/user.txt</code> 的文件中，并将 password 字段存储在名为 <code>/cks/sec/pass.txt</code> 的文件中。</p>
+<p><strong>注意：你必须创建以上两个文件，他们还不存在。</strong></p>
+<p><strong>注意：不要在以下步骤中使用/修改先前创建的文件，如果需要，可以创建新的临时文件。</strong></p>
+</li>
+<li><p>在<code>istio-system</code> namespace 中创建一个名为 <code>db2-test</code> 的新 secret，内容如下：</p>
+</li>
+</ol>
+<ul>
+<li><p>username : <code>production-instance</code></p>
+</li>
+<li><p>password : <code>KvLftKgs4aVH</code></p>
+</li>
+</ul>
+<ol start="3">
+<li>最后，创建一个新的 Pod，它可以通过卷访问 secret <code>db2-test</code> </li>
+</ol>
+<ul>
+<li><p>Pod 名称 <code>secret-pod</code></p>
+</li>
+<li><p>Namespace <code>istio-system</code></p>
+</li>
+<li><p>容器名 <code>dev-container</code></p>
+</li>
+<li><p>镜像 <code>nginx</code></p>
+</li>
+<li><p>卷名 <code>secret-volume</code></p>
+</li>
+<li><p>挂载路径 <code>/etc/secret</code></p>
+</li>
+</ul>
+<h3 id="ServiceAccount"><a href="#ServiceAccount" class="headerlink" title="ServiceAccount"></a>ServiceAccount</h3><blockquote>
+<p>Reference: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/security/service-accounts/">https://kubernetes.io/docs/concepts/security/service-accounts/</a></p>
+</blockquote>
+<ul>
+<li>Prevent kubernetes from injecting credentials for a pod</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl explain sa.automountServiceAccountToken</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl explain pod.spec.automountServiceAccountToken</span></span><br></pre></td></tr></table></figure>
+
+<p>Set one of fields above to <code>false</code> to prevent auto injection for a pod.</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/security/service-accounts/#enforce-mountable-secrets">Restrict access to Secrets</a><br>Set annotation <code>kubernetes.io/enforce-mountable-secrets</code> to <code>true</code> for a <code>ServiceAccount</code>, then only secrets in the field of <code>sa.secrets</code> of this ServiceAccount was allowed to use in a pod, such as a secret <code>volume,</code>  <code>envFrom</code>, <code>imagePullSecrets</code>.</p>
+</li>
+<li><p>How to use ServiceAccount to connect to apiserver? <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/run-application/access-api-from-pod">reference</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt --header &quot;Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)&quot; -X GET https://kubernetes.default.svc/api/v1/namespaces/default/secrets</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">or</span></span><br><span class="line">curl -k -XGET --header &quot;Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)&quot;  https://kubernetes.default.svc/api/v1/namespaces/default/secrets</span><br></pre></td></tr></table></figure>
+
+<p>整个kubeAPIServer提供了三类API Resource接口：</p>
+<ul>
+<li>core group：主要在 <code>/api/v1</code> 下；</li>
+<li>named groups：其 path 为 <code>/apis/$GROUP/$VERSION</code>；</li>
+<li>系统状态的一些 API：如<code>/metrics</code> 、<code>/version</code> 等；</li>
+</ul>
+<p>而API的URL大致以 <code>/apis/&#123;group&#125;/&#123;version&#125;/namespaces/&#123;namespace&#125;/&#123;resources&#125;/&#123;name&#125;</code> 组成，结构如下图所示：</p>
+<p><img src="https://img2020.cnblogs.com/other/2041406/202101/2041406-20210120094608734-1433747602.png" alt="https://img2020.cnblogs.com/other/2041406/202101/2041406-20210120094608734-1433747602.png"></p>
+<p>Tips:</p>
+<p>在apiserver的URL中，资源需要用复数形式，如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -k -H &quot;Authorization: Bearer $(cat /run/secrets/kubernetes.io/serviceaccount/token)&quot; \</span><br><span class="line">https://kubernetes.default.svc/api/v1/namespaces/default/pods/shs-dep-b56c568d6-n8h6d</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h3><p>How to use <code>etcdctl</code> to get raw data from etcd?</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ETCDCTL_API=3 etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt \</span><br><span class="line">--cert=/etc/kubernetes/pki/etcd/peer.crt \</span><br><span class="line">--key=/etc/kubernetes/pki/etcd/peer.key \</span><br><span class="line">get /registry/secrets/default -w=json | jq .</span><br></pre></td></tr></table></figure>
+
+<h3 id="Upgrade-kubernetes-version"><a href="#Upgrade-kubernetes-version" class="headerlink" title="Upgrade kubernetes version"></a>Upgrade kubernetes version</h3><p>Follow these steps:</p>
+<h4 id="for-master"><a href="#for-master" class="headerlink" title="for master"></a>for master</h4><ol>
+<li><code>k drain controller-plane</code></li>
+<li><code>apt-mark unhold kubeadm</code></li>
+<li><code>apt-mark hold kubelet kubectl</code></li>
+<li><code>apt update &amp;&amp; apt upgrade -y</code></li>
+<li><code>kubeadm upgrade plan</code></li>
+<li><code>kubeadm upgrade apply v1.2x.x</code></li>
+<li><code>kubeadm upgrade plan(for check purpose)</code></li>
+<li><code>apt-mark hold kubeadm</code></li>
+<li><code>apt-mark unhold kubelet kubectl</code></li>
+<li><code>apt install kubectl=1.2x.x kubelet=1.2x.x</code></li>
+<li><code>apt-mark hold kubelet kubectl</code></li>
+<li><code>systemctl restart kubelet</code></li>
+<li><code>systemctl status kubelet</code></li>
+<li><code>k uncordon controller-plane</code></li>
+</ol>
+<h4 id="for-node"><a href="#for-node" class="headerlink" title="for node"></a>for node</h4><ol>
+<li><code>k drain node</code></li>
+<li><code>apt update</code></li>
+<li><code>apt-mark unhold kubeadm</code></li>
+<li><code>apt-mark hold kubectl kubelet</code></li>
+<li><code>apt install kubeadm=1.2x.x</code></li>
+<li><code>kubeadm upgrade plan</code></li>
+<li><code>kubeadm upgrade node</code></li>
+<li><code>apt-mark hold kubeadm</code></li>
+<li><code>apt-mark unhold kubectl kubelet</code></li>
+<li><code>apt install kubectl=1.2x.x kubelet=1.2x.x</code></li>
+<li><code>systemctl restart kubelet</code></li>
+<li><code>systemctl status kubelet</code></li>
+<li><code>k uncordon kubelet</code></li>
+</ol>
+<h4 id="check-upgrade-result"><a href="#check-upgrade-result" class="headerlink" title="check upgrade result"></a>check upgrade result</h4><ol>
+<li><code>k get node</code></li>
+</ol>
+<h3 id="ImagePolicyWebhook"><a href="#ImagePolicyWebhook" class="headerlink" title="ImagePolicyWebhook"></a>ImagePolicyWebhook</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook">https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook</a></p>
+</blockquote>
+<h2 id="安全工具使用"><a href="#安全工具使用" class="headerlink" title="安全工具使用"></a>安全工具使用</h2><h3 id="kube-bench"><a href="#kube-bench" class="headerlink" title="kube-bench"></a>kube-bench</h3><p>A tool to detect potential security issues and give the specific means to solve the issue.</p>
+<blockquote>
+<p>Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/aquasecurity/kube-bench/blob/main/docs/running.md">Running Method</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/aquasecurity/kube-bench">https://github.com/aquasecurity/kube-bench</a></li>
+</ul>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Simple way <span class="keyword">in</span> a kubernetes cluster created by kubeadm</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl apply \</span></span><br><span class="line"><span class="language-bash">    -f https://raw.githubusercontent.com/aquasecurity/kube-bench/main/job.yaml</span></span><br></pre></td></tr></table></figure>
+
+<p>Contents<br>Consists of the following topics:</p>
+<ul>
+<li>master</li>
+<li>etcd</li>
+<li>controlplane</li>
+<li>node</li>
+<li>policies</li>
+</ul>
+<p>Each topic starts with a list of items which was checked with checked status,  then a list of remediations to FAIL or WARN items given. You can fix those issues under the given instructions. At last,  check summary of this topic.</p>
+<p>Here is a output example for topic <code>master</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[WARN] 1.1.9 Ensure that the Container Network Interface file permissions are set to 600 or more restrictive (Manual)</span><br><span class="line">[WARN] 1.1.10 Ensure that the Container Network Interface file ownership is set to root:root (Manual)</span><br><span class="line"></span><br><span class="line">== Remediations master ==</span><br><span class="line">1.1.9 Run the below command (based on the file location on your system) on the control plane node.</span><br><span class="line">For example, chmod 600 &lt;path/to/cni/files&gt;</span><br><span class="line">1.1.10 Run the below command (based on the file location on your system) on the control plane node.</span><br><span class="line">For example,</span><br><span class="line">chown root:root &lt;path/to/cni/files&gt;</span><br><span class="line"></span><br><span class="line">== Summary master ==</span><br><span class="line">38 checks PASS</span><br><span class="line">9 checks FAIL</span><br><span class="line">13 checks WARN</span><br><span class="line">0 checks INFO</span><br></pre></td></tr></table></figure>
+
+<p>Full contexts can be touch by <a href="">this link</a></p>
+<h3 id="trivy"><a href="#trivy" class="headerlink" title="trivy"></a>trivy</h3><blockquote>
+<p>Reference: <a target="_blank" rel="noopener" href="https://github.com/aquasecurity/trivy">https://github.com/aquasecurity/trivy</a></p>
+</blockquote>
+<p>Scan a docker image</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trivy image --severity LOW,MEDIUM ghcr.io/feiyudev/shs:latest</span><br></pre></td></tr></table></figure>
+
+<p>扫描某命名空间下所有pod所使用的镜像包含 <code>HIGH, CRITICAL</code> 类型漏洞，并删除该pod</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">k get pod -A -ojsonpath=&quot;&#123;range .items[*]&#125;&#123;.spec[&#x27;initContainers&#x27;,&#x27;containers&#x27;][*].image&#125; &#123;.metadata.name&#125; &#123;&#x27;#&#x27;&#125; &#123;end&#125;&quot; | sed &#x27;s|#|\n|g&#x27; | sed &#x27;s|^ ||g&#x27; | sed &#x27;s| $||g&#x27; | awk &#x27;&#123;cmd=&quot;echo &quot;$2&quot;; trivy -q image &quot;$1&quot; --severity HIGH,CRITICAL | grep Total&quot;;system(cmd)&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>该命令的注意点：</p>
+<ul>
+<li><code>jsonpath</code> range</li>
+<li><code>awk</code> system(cmd)</li>
+<li><code>sed</code> replace</li>
+</ul>
+<h3 id="sysdig"><a href="#sysdig" class="headerlink" title="sysdig"></a>sysdig</h3><blockquote>
+<p>Reference: <a target="_blank" rel="noopener" href="https://github.com/draios/sysdig">https://github.com/draios/sysdig</a></p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=UJ4wVrbP-Q8">Video</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linhaostudy/p/17017114.html">Usage</a></li>
+</ul>
+<h4 id="Installation-Based-on-Ubuntu-22-04"><a href="#Installation-Based-on-Ubuntu-22-04" class="headerlink" title="Installation(Based on Ubuntu 22.04)"></a>Installation(Based on Ubuntu 22.04)</h4><ul>
+<li>Download <code>deb</code> from <a target="_blank" rel="noopener" href="https://github.com/draios/sysdig/releases">sysdig-release</a></li>
+<li><code>sudo dpkg -i sysdig-0.34.1-x86_64.deb</code></li>
+<li><code>sudo apt -f install</code></li>
+</ul>
+<h4 id="Output-format"><a href="#Output-format" class="headerlink" title="Output format"></a>Output format</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%evt.num %evt.outputtime %evt.cpu %proc.name (%thread.tid) %evt.dir %evt.type %evt.info</span><br><span class="line">173884 15:06:10.075401786 7 sudo (1453517.1453517) &gt; read fd=9(&lt;f&gt;/dev/ptmx) size=65536</span><br></pre></td></tr></table></figure>
+
+<p>Notes: </p>
+<ol>
+<li><code>evt.dir</code> aka event direction, &lt; represents out, &gt; represents in.</li>
+<li><code>evt.type</code> aka event type, perceiving it as a name of system call.</li>
+</ol>
+<h4 id="Chisels"><a href="#Chisels" class="headerlink" title="Chisels"></a>Chisels</h4><p>predefined function sets based on sysdig events, to implements complex situation. Locates in <code>/usr/share/sysdig/chisels</code> on Linux machine. </p>
+<p>What are those chisels?</p>
+<ol>
+<li>To see chisels.</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sysdig -cl</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">or</span></span><br><span class="line">sysdig --list-chisels</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>To use a chisel</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">See HTTP <span class="built_in">log</span></span></span><br><span class="line">sysdig -c httplog</span><br><span class="line">2024-01-25 23:06:16.423272777 &lt; method=GET url=:8080/health response_code=200 latency=0ms size=2B</span><br><span class="line">2024-01-25 23:06:16.423299653 &gt; method=GET url=:8080/health response_code=200 latency=0ms size=2B</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">See CPU usage ranking</span></span><br><span class="line">sysdig -c topprocs_cpu</span><br><span class="line"><span class="meta prompt_">CPU% </span><span class="language-bash">               Process             PID</span></span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">8.01%               kube-apiserver      39124</span><br><span class="line">3.00%               kubelet             25007</span><br><span class="line">3.00%               etcd                1613</span><br><span class="line">2.00%               sysdig              102489</span><br><span class="line">2.00%               kube-controller     38957</span><br><span class="line">2.00%               calico-node         4705</span><br><span class="line">1.00%               containerd          874</span><br><span class="line">1.00%               vmtoolsd            790</span><br><span class="line">1.00%               kube-scheduler      39017</span><br><span class="line">0.00%               svlogd              2505</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Advanced usage about a chisel</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sysdig -i spy_file</span></span><br><span class="line"></span><br><span class="line">Category: I/O</span><br><span class="line">-------------</span><br><span class="line">spy_file        Echo any read/write made by any process to all files. Optionall</span><br><span class="line">                y, you can provide the name of one file to only intercept reads</span><br><span class="line">                /writes to that file.</span><br><span class="line"></span><br><span class="line">This chisel intercepts all reads and writes to all files. Instead of all files,</span><br><span class="line"> you can limit interception to one file.</span><br><span class="line">Args:</span><br><span class="line">[string] read_or_write - Specify &#x27;R&#x27; to capture only read event</span><br><span class="line">                s; &#x27;W&#x27; to capture only write events; &#x27;RW&#x27; to capture read and w</span><br><span class="line">                rite events. By default both read and write events are captured</span><br><span class="line">                .</span><br><span class="line">[string] spy_on_file_name - The name of the file which the chis</span><br><span class="line">                el should spy on for all read and write activity.</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sysdig -c spy_file <span class="string">&quot;RW /root/spy_file_test.txt&quot;</span></span></span><br><span class="line">23:53:25.592303985 date(112109) W 32B /root/spy_file_test.txt</span><br><span class="line">Thu Jan 25 11:53:25 PM HKT 2024</span><br><span class="line"></span><br><span class="line">23:53:43.333152845 cat(112206) R 32B /root/spy_file_test.txt</span><br><span class="line">Thu Jan 25 11:53:25 PM HKT 2024</span><br><span class="line"></span><br><span class="line">23:53:43.333166670 cat(112206) R 0B /root/spy_file_test.txt NULL</span><br><span class="line">23:53:51.856062624 date(112270) W 32B /root/spy_file_test.txt</span><br><span class="line">Thu Jan 25 11:53:51 PM HKT 2024</span><br><span class="line"></span><br><span class="line">23:53:56.965894638 cat(112307) R 64B /root/spy_file_test.txt</span><br><span class="line">Thu Jan 25 11:53:25 PM HKT 2024</span><br><span class="line">Thu Jan 25 11:53:51 PM HKT 2024</span><br><span class="line"></span><br><span class="line">23:53:56.965902094 cat(112307) R 0B /root/spy_file_test.txt NULL</span><br></pre></td></tr></table></figure>
+
+<h4 id="Usage-2"><a href="#Usage-2" class="headerlink" title="Usage"></a>Usage</h4><ol>
+<li>Save events to a file</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysdig -w test.scap</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Read events from a file while analyzing (by chisels)</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysdig -r test.scap -c httptop</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Specify the format to be used when printing the events<br>-p <output_format>, –print=<output_format><br> Specify the format to be used when printing the events.<br> With -pc or -pcontainer will use a container-friendly format.<br> With -pk or -pkubernetes will use a kubernetes-friendly format.<br> With -pm or -pmesos will use a mesos-friendly format.<br> See the examples section below for more info.</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysdig -r test.scap -c httptop -pc</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>Specify the number of events Sysdig should capture by passing it the -n flag. Once Sysdig captures the specified number of events, it’ll automatically exit:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysdig -n 5000 -w test.scap</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>Use the -C flag to configure Sysdig so that it breaks the capture into smaller files of a specified size.<br>The following example continuously saves events to files &lt; 10MB:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysdig -C 10 -w test.scap</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>Specify the maximum number of files Sysdig should keep with the -W flag. For example, you can combine the -C and -W flags like so:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysdig -C 10 -W 4 -w test.scap</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>You can analyze the processes running in the WordPress container with:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysdig -pc -c topprocs_cpu container.name=wordpress-sysdig_wordpress_1</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>-M <num_seconds>   Stop collecting after <num_seconds> reached.</li>
+</ol>
+<h4 id="Help"><a href="#Help" class="headerlink" title="Help"></a>Help</h4><p>关于filter可用的字段，可以通过<code>sysdig -l</code>来查看所有支持的字段。例如查看容器相关的过滤字段，有：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@primary:~$ sysdig -l | grep &quot;^container.&quot;</span><br><span class="line">container.id                  The truncated container ID (first 12 characters), e.g. 3ad7b26ded6d is extracted from the</span><br><span class="line">container.full_id             The full container ID, e.g.</span><br><span class="line">container.name                The container name. In instances of userspace container engine lookup delays, this field</span><br><span class="line">container.image               The container image name (e.g. falcosecurity/falco:latest for docker). In instances of</span><br><span class="line">container.image.id            The container image id (e.g. 6f7e2741b66b). In instances of userspace container engine</span><br><span class="line">container.type                The container type, e.g. docker, cri-o, containerd etc.</span><br><span class="line">container.privileged          &#x27;true&#x27; for containers running as privileged, &#x27;false&#x27; otherwise. In instances of userspace</span><br><span class="line">container.mounts              A space-separated list of mount information. Each item in the list has the format</span><br><span class="line">container.mount               (ARG_REQUIRED) Information about a single mount, specified by number (e.g.</span><br><span class="line">container.mount.source        (ARG_REQUIRED) The mount source, specified by number (e.g. container.mount.source[0]) or</span><br><span class="line">container.mount.dest          (ARG_REQUIRED) The mount destination, specified by number (e.g. container.mount.dest[0])</span><br><span class="line">container.mount.mode          (ARG_REQUIRED) The mount mode, specified by number (e.g. container.mount.mode[0]) or</span><br><span class="line">container.mount.rdwr          (ARG_REQUIRED) The mount rdwr value, specified by number (e.g. container.mount.rdwr[0])</span><br><span class="line">container.mount.propagation   (ARG_REQUIRED) The mount propagation value, specified by number (e.g.</span><br><span class="line">container.image.repository    The container image repository (e.g. falcosecurity/falco). In instances of userspace</span><br><span class="line">container.image.tag           The container image tag (e.g. stable, latest). In instances of userspace container engine</span><br><span class="line">container.image.digest        The container image registry digest (e.g.</span><br><span class="line">container.healthcheck         The container&#x27;s health check. Will be the null value (&quot;N/A&quot;) if no healthcheck</span><br><span class="line">container.liveness_probe      The container&#x27;s liveness probe. Will be the null value (&quot;N/A&quot;) if no liveness probe</span><br><span class="line">container.readiness_probe     The container&#x27;s readiness probe. Will be the null value (&quot;N/A&quot;) if no readiness probe</span><br><span class="line">container.start_ts            Container start as epoch timestamp in nanoseconds based on proc.pidns_init_start_ts and</span><br><span class="line">container.duration            Number of nanoseconds since container.start_ts.</span><br><span class="line">container.ip                  The container&#x27;s / pod&#x27;s primary ip address as retrieved from the container engine. Only</span><br><span class="line">container.cni.json            The container&#x27;s / pod&#x27;s CNI result field from the respective pod status info. It contains</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，<code>container.id</code>只能取前12个字符，另外也可以用容器id的全名，即<code>container.full_id</code>。另外k8s可支持的字段有：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@primary:~$ sysdig -l | grep &quot;^k8s.&quot;</span><br><span class="line">k8s.ns.name                   The Kubernetes namespace name. This field is extracted from the container runtime socket</span><br><span class="line">k8s.pod.name                  The Kubernetes pod name. This field is extracted from the container runtime socket</span><br><span class="line">k8s.pod.id                    [LEGACY] The Kubernetes pod UID, e.g. 3e41dc6b-08a8-44db-bc2a-3724b18ab19a. This legacy</span><br><span class="line">k8s.pod.uid                   The Kubernetes pod UID, e.g. 3e41dc6b-08a8-44db-bc2a-3724b18ab19a. Note that the pod UID</span><br><span class="line">k8s.pod.sandbox_id            The truncated Kubernetes pod sandbox ID (first 12 characters), e.g 63060edc2d3a. The</span><br><span class="line">k8s.pod.full_sandbox_id       The full Kubernetes pod / sandbox ID, e.g</span><br><span class="line">k8s.pod.label                 (ARG_REQUIRED) The Kubernetes pod label. The label can be accessed either with the</span><br><span class="line">k8s.pod.labels                The Kubernetes pod comma-separated key/value labels. E.g. &#x27;foo1:bar1,foo2:bar2&#x27;. This</span><br><span class="line">k8s.pod.ip                    The Kubernetes pod ip, same as container.ip field as each container in a pod shares the</span><br><span class="line">k8s.pod.cni.json              The Kubernetes pod CNI result field from the respective pod status info, same as</span><br></pre></td></tr></table></figure>
+
+<h4 id="Traps"><a href="#Traps" class="headerlink" title="Traps"></a>Traps</h4><blockquote>
+<p>此处有坑</p>
+</blockquote>
+<p>使用<code>container.id</code>过滤时，注意id的长度需要为<code>12</code>，不然数据出不来。通过<code>crictl ps</code>看到的<code>container id</code>是<strong>13</strong>位的，使用sysdig时，需要注意长度。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@primary:~$ crictl ps | grep -v ^C | awk &#x27;&#123;print $1,$2,$6,$7&#125;&#x27;</span><br><span class="line">0fd88042f1ddf 848c5b919e8d3 Running calico-apiserver</span><br><span class="line">ad81cac0dbf9e 848c5b919e8d3 Running calico-apiserver</span><br><span class="line">f6d6b81c75f69 4e87edec0297d Running calico-kube-controllers</span><br><span class="line">87c4fbddeb123 d36ef67f7b24c Running csi-node-driver-registrar</span><br><span class="line">46095b3ea4bf6 91c1c91da7602 Running calico-csi</span><br><span class="line">51e65353815dc cbb01a7bd410d Running coredns</span><br><span class="line">7fc6f4ad4aafa cbb01a7bd410d Running coredns</span><br><span class="line">de42d610f5530 1843802b91be8 Running calico-node</span><br><span class="line">21ae9adf53e47 b33768e0da1f8 Running calico-typha</span><br><span class="line">a2f7701ceae6c 7bc79e0d3be4f Running tigera-operator</span><br><span class="line">d91edc95d2edf 9344fce2372f8 Running kube-proxy</span><br><span class="line">5f7d85179ade0 6fc5e6b7218c7 Running kube-scheduler</span><br><span class="line">d40dd28cc171c 138fb5a3a2e34 Running kube-controller-manager</span><br><span class="line">c71d33c5aea6e 8a9000f98a528 Running kube-apiserver</span><br><span class="line">0cdeff9542f15 a0eed15eed449 Running etcd</span><br></pre></td></tr></table></figure>
+
+<h3 id="falco"><a href="#falco" class="headerlink" title="falco"></a>falco</h3><blockquote>
+<p>Reference: <a target="_blank" rel="noopener" href="https://falco.org/docs">https://falco.org/docs</a></p>
+</blockquote>
+<h3 id="strace"><a href="#strace" class="headerlink" title="strace"></a>strace</h3><p>监控<u>进程</u>的<strong>系统调用</strong>和<strong>信号量</strong>，基础的使用方式</p>
+<ol>
+<li>监听某个已存在的进程 <code>strace -p &lt;pid&gt;</code></li>
+<li>直接启动一个二进制 <code>strace &lt;binary-name&gt;</code></li>
+<li>对输出结果进行过滤 <code>strace -e trace=file</code></li>
+</ol>
+<h2 id="考试说明书"><a href="#考试说明书" class="headerlink" title="考试说明书"></a>考试说明书</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-cks">Handbook of CKS exam</a></p>
+</blockquote>
+<p>Requirments of your computer, microphone, camera, speaker, etc.</p>
+<blockquote>
+<p>Don’t use headphone, earbuds.</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://helpdesk.psionline.com/hc/en-gb/articles/4409608794260-PSI-Bridge-Platform-System-Requirements">[PSI Bridge FAQ] System Requirements</a> </li>
+<li><a target="_blank" rel="noopener" href="https://docs.linuxfoundation.org/tc-docs/certification/important-instructions-cks#system-requirements-to-take-the-exam">System Requirements to take the exam</a></li>
+<li>Browser recommand Google Chrome</li>
+</ul>
+<p>Exam Details</p>
+<p>Online tests, <strong>15-20</strong> performance-based tasks, <strong>2 hours</strong> to complete the tasks.</p>
+<p>Don’t cheat, audio,camera,screen capture of the test will be reviewed.</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>2024年CKS考试准备</p><p><a href="https://eucham.me/2024/01/30/64634917304d.html">https://eucham.me/2024/01/30/64634917304d.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>遇寻</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2024-01-30</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2024-12-09</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/cks/">cks</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=5f548d5caad6e60013d63db8&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/02/21/84ee50d29e8e.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Google Pixel 7a玩机攻略</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/06/26/dee71ca0ecee.html"><span class="level-item">利用OpenWrt为虚拟机做流量代理</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://eucham.me/2024/01/30/64634917304d.html';
+            this.page.identifier = '2024/01/30/64634917304d.html';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'eucham' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/12/"><span class="level-start"><span class="level-item">十二月 2024</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/02/"><span class="level-start"><span class="level-item">二月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/01/"><span class="level-start"><span class="level-item">一月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/06/"><span class="level-start"><span class="level-item">六月 2023</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/02/"><span class="level-start"><span class="level-item">二月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/01/"><span class="level-start"><span class="level-item">一月 2023</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">十月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">八月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/07/"><span class="level-start"><span class="level-item">七月 2022</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">五月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">十月 2021</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/08/"><span class="level-start"><span class="level-item">八月 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">七月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/11/"><span class="level-start"><span class="level-item">十一月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">十月 2020</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/09/"><span class="level-start"><span class="level-item">九月 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/08/"><span class="level-start"><span class="level-item">八月 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/07/"><span class="level-start"><span class="level-item">七月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">六月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">五月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">四月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/03/"><span class="level-start"><span class="level-item">三月 2020</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/02/"><span class="level-start"><span class="level-item">二月 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/01/"><span class="level-start"><span class="level-item">一月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/12/"><span class="level-start"><span class="level-item">十二月 2019</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/11/"><span class="level-start"><span class="level-item">十一月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/10/"><span class="level-start"><span class="level-item">十月 2019</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/08/"><span class="level-start"><span class="level-item">八月 2019</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/07/"><span class="level-start"><span class="level-item">七月 2019</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/06/"><span class="level-start"><span class="level-item">六月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/05/"><span class="level-start"><span class="level-item">五月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/04/"><span class="level-start"><span class="level-item">四月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/03/"><span class="level-start"><span class="level-item">三月 2019</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/02/"><span class="level-start"><span class="level-item">二月 2019</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/01/"><span class="level-start"><span class="level-item">一月 2019</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/12/"><span class="level-start"><span class="level-item">十二月 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/11/"><span class="level-start"><span class="level-item">十一月 2018</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/09/"><span class="level-start"><span class="level-item">九月 2018</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/08/"><span class="level-start"><span class="level-item">八月 2018</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/07/"><span class="level-start"><span class="level-item">七月 2018</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/06/"><span class="level-start"><span class="level-item">六月 2018</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/05/"><span class="level-start"><span class="level-item">五月 2018</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/04/"><span class="level-start"><span class="level-item">四月 2018</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/03/"><span class="level-start"><span class="level-item">三月 2018</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/02/"><span class="level-start"><span class="level-item">二月 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/01/"><span class="level-start"><span class="level-item">一月 2018</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/12/"><span class="level-start"><span class="level-item">十二月 2017</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/10/"><span class="level-start"><span class="level-item">十月 2017</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/09/"><span class="level-start"><span class="level-item">九月 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/03/"><span class="level-start"><span class="level-item">三月 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/01/"><span class="level-start"><span class="level-item">一月 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/12/"><span class="level-start"><span class="level-item">十二月 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/249b2dc63505.html"><img src="/images/pics/5300c911560a8d2e0d745dcaf025d22f.jpg" alt="M系列MacBook连接l2tp时失败的问题修复"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/249b2dc63505.html">M系列MacBook连接l2tp时失败的问题修复</a></p><p class="categories"><a href="/categories/macOS/">macOS</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/e9036e8500f6.html"><img src="/images/thumbnails/rust-lang.png" alt="Rust学习笔记"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/e9036e8500f6.html">Rust学习笔记</a></p><p class="categories"><a href="/categories/Rust/">Rust</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/4948e86c1262.html"><img src="/images/pics/DrRvr9.jpg" alt="Calico证书学习笔记"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/4948e86c1262.html">Calico证书学习笔记</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/6dae87e31dc3.html"><img src="/images/pics/e9f22d889a230bfda8e24c0a981740a8.png" alt="如何在YAML文件中进行优雅地换行"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/6dae87e31dc3.html">如何在YAML文件中进行优雅地换行</a></p><p class="categories"><a href="/categories/Golang/">Golang</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/25470f32f4bb.html"><img src="/images/pics/kubernetes-cka-color.svg" alt="CKS证书学习资料汇编"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/25470f32f4bb.html">CKS证书学习资料汇编</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a></p></div></article></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://crisfang.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Cris</span></span><span class="level-right"><span class="level-item tag">crisfang.com</span></span></a></li><li><a class="level is-mobile" href="https://sanyuesha.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">三月沙</span></span><span class="level-right"><span class="level-item tag">sanyuesha.com</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png" alt="遇寻笔记" height="28"></a><p class="is-size-7"><span>&copy; 2024 遇寻</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="To Find Me" href="https://github.com/eucham"><i class="fab fa-github"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/in/eucham"><i class="fab fa-linkedin"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

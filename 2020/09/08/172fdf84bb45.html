@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Dockerfiles 官网 doc 笔记 - 遇寻笔记</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="遇寻笔记"><meta name="msapplication-TileImage" content="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="遇寻笔记"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Docker 通过 Dockerfile 中的指令来构建镜像。Docker 镜像由很多镜像构成，每一层对应一个 Dockerfile 里面的指令。一个运行中的容器，由镜像的所有层加上可写层构成，所有的读写都在最上面的可写层。容器应该是无状态的，销毁、重建应该花费最小的配置。   （build context）构建上下文1docker build -f ~&amp;#x2F;Dockerfile.hi context"><meta property="og:type" content="article"><meta property="og:title" content="Dockerfiles 官网 doc 笔记"><meta property="og:url" content="https://eucham.me/2020/09/08/172fdf84bb45.html"><meta property="og:site_name" content="遇寻笔记"><meta property="og:description" content="Docker 通过 Dockerfile 中的指令来构建镜像。Docker 镜像由很多镜像构成，每一层对应一个 Dockerfile 里面的指令。一个运行中的容器，由镜像的所有层加上可写层构成，所有的读写都在最上面的可写层。容器应该是无状态的，销毁、重建应该花费最小的配置。   （build context）构建上下文1docker build -f ~&amp;#x2F;Dockerfile.hi context"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://eucham.me/images/pics/098a050bb077362151ad100d3197aa53.png"><meta property="article:published_time" content="2020-09-08T10:05:41.000Z"><meta property="article:modified_time" content="2021-02-09T03:03:30.281Z"><meta property="article:author" content="遇寻"><meta property="article:tag" content="Dockerfile"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/images/pics/098a050bb077362151ad100d3197aa53.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://eucham.me/2020/09/08/172fdf84bb45.html"},"headline":"Dockerfiles 官网 doc 笔记","image":["https://eucham.me/images/pics/098a050bb077362151ad100d3197aa53.png"],"datePublished":"2020-09-08T10:05:41.000Z","dateModified":"2021-02-09T03:03:30.281Z","author":{"@type":"Person","name":"遇寻"},"publisher":{"@type":"Organization","name":"遇寻笔记","logo":{"@type":"ImageObject","url":"https://eucham.me/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png"}},"description":"Docker 通过 Dockerfile 中的指令来构建镜像。Docker 镜像由很多镜像构成，每一层对应一个 Dockerfile 里面的指令。一个运行中的容器，由镜像的所有层加上可写层构成，所有的读写都在最上面的可写层。容器应该是无状态的，销毁、重建应该花费最小的配置。   （build context）构建上下文1docker build -f ~&#x2F;Dockerfile.hi context"}</script><link rel="canonical" href="https://eucham.me/2020/09/08/172fdf84bb45.html"><link rel="icon" href="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?7d79380bb26079f6dd33da78e83cf2ab";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><meta name="generator" content="Hexo 5.4.2"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png" alt="遇寻笔记" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/categories/AI">AI</a><a class="navbar-item" href="/categories/Kubernetes">Kubernetes</a><a class="navbar-item" href="/categories/Openstack">Openstack</a><a class="navbar-item" href="/categories/Docker">Container</a><a class="navbar-item" href="/categories/Golang">Golang</a><a class="navbar-item" href="/categories/Rust">Rust</a><a class="navbar-item" href="/about.html">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="To Find Me" href="https://github.com/eucham"><i class="fab fa-github"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/in/eucham"><i class="fab fa-linkedin"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-09-08T10:05:41.000Z" title="9/8/2020, 6:05:41 PM">2020-09-08</time>发表</span><span class="level-item"><time dateTime="2021-02-09T03:03:30.281Z" title="2/9/2021, 11:03:30 AM">2021-02-09</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Docker/">Docker</a></span><span class="level-item">21 分钟读完 (大约3159个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">Dockerfiles 官网 doc 笔记</h1><div class="content"><p>Docker 通过 Dockerfile 中的指令来构建镜像。<br>Docker 镜像由很多镜像构成，每一层对应一个 Dockerfile 里面的指令。<br>一个运行中的容器，由镜像的<strong>所有层</strong>加上<strong>可写层</strong>构成，所有的读写都在最上面的可写层。<br>容器应该是无状态的，销毁、重建应该花费最小的配置。</p>
+<!--more-->
+
+<h2 id="（build-context）构建上下文"><a href="#（build-context）构建上下文" class="headerlink" title="（build context）构建上下文"></a>（build context）构建上下文</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -f ~/Dockerfile.hi context-dir</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>通过 -f 指定 Dockerfile 的路径</p>
+</li>
+<li><p><code>context-dir</code> 即为构建上下文，该文件夹下面所有的内容都会被传递给 Docker daemon，用来构建镜像。构建上下文包含不相关的内容，会影响构建速度、镜像大小。</p>
+</li>
+</ul>
+<p>可通过编写 <code>.dockerignore</code> 文件，并放置在构建上下文的目录下，达到类似于 <code>.gitignore</code> 的效果，将不必要的文件（夹）不发送给 Docker Daemon。</p>
+<p>有如下几种从 <code>stdin</code> 构建镜像的方式：</p>
+<blockquote>
+<p><code>-</code> 表是占位，从 <code>stdin</code> 读取</p>
+</blockquote>
+<ol>
+<li>无构建上下文（不需要拷贝文件到镜像中）</li>
+</ol>
+<p>模板</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build [OPTIONS] -</span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -e &#x27;FROM busybox\nRUN echo &quot;hello world&quot;&#x27; | docker build -</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker build -&lt;&lt;EOF</span><br><span class="line">FROM busybox</span><br><span class="line">RUN echo &quot;hello world&quot;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>上述两种方式，都不会给 Docker Daemon 发送构建上下文，但是注意不要在 Dockerfile 中使用 <code>COPY</code> 、 <code>ADD</code> ，这样会导致构建失败。</p>
+<ol start="2">
+<li>传递本地构建上下文</li>
+</ol>
+<p>模板</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build [OPTIONS] -f- PATH</span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> create a directory to work <span class="keyword">in</span></span></span><br><span class="line">mkdir example</span><br><span class="line">cd example</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> create an example file</span></span><br><span class="line">touch somefile.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> build an image using the current directory as context, and a Dockerfile passed through stdin</span></span><br><span class="line">docker build -t myimage:latest -f- . &lt;&lt;EOF</span><br><span class="line">FROM busybox</span><br><span class="line">COPY somefile.txt .</span><br><span class="line">RUN cat /somefile.txt</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>传递<strong>远程</strong>构建上下文</li>
+</ol>
+<p>模板</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build [OPTIONS] -f- PATH</span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker build -t myimage:latest -f- https://github.com/docker-library/hello-world.git &lt;&lt;EOF</span><br><span class="line">FROM busybox</span><br><span class="line">COPY hello.c .</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h2 id="多阶段构建"><a href="#多阶段构建" class="headerlink" title="多阶段构建"></a>多阶段构建</h2><p>使 Dockerfile 在容易维护、阅读的基础上，减少镜像的大小</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>在一个 Dockerfile 中使用多个 FROM，每个 FROM 构建一个镜像，在镜像之间的拷贝操作变得容易。如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> golang:<span class="number">1.7</span>.<span class="number">3</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /go/src/github.com/alexellis/href-counter/</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> go get -d -v golang.org/x/net/html  </span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> app.go .</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> alpine:latest  </span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk --no-cache add ca-certificates</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /root/</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=0 /go/src/github.com/alexellis/href-counter/app .</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;./app&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>对 <code>--from=0</code> ，按照数组下标从 0 开始，第一个 FROM 构建的镜像为0，依次类推。当然也可以给 FROM 构建的镜像命名：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> golang:<span class="number">1.7</span>.<span class="number">3</span> AS builder</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /go/src/github.com/alexellis/href-counter/</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> go get -d -v golang.org/x/net/html  </span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> app.go    .</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> alpine:latest  </span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk --no-cache add ca-certificates</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /root/</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=builder /go/src/github.com/alexellis/href-counter/app .</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;./app&quot;</span>]  </span></span><br></pre></td></tr></table></figure>
+
+<p>其实 <code>--from=xxx</code> 中的 xxx 也可以为其它的、不在此 Dockerfile 中产生的镜像</p>
+<h3 id="其它用法"><a href="#其它用法" class="headerlink" title="其它用法"></a>其它用法</h3><ol>
+<li>只构建指定的构建阶段，即某特定 <code>FROM</code> 所代表的镜像。沿用前面的例子，可以只构建 <code>builder</code> 阶段的镜像。</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build --target builder -t alexellis2/href-counter:latest .</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>后续的 <code>FROM</code> 可以以前面的 <code>FROM</code> 构建的镜像做为 base。</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> alpine:latest as builder</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk --no-cache add build-base</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> builder as build1</span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> source1.cpp source.cpp</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> g++ -o /binary source.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> builder as build2</span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> source2.cpp source.cpp</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> g++ -o /binary source.cpp</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="构建缓存"><a href="#构建缓存" class="headerlink" title="构建缓存"></a>构建缓存</h2><p>显式声明不使用缓存： <code>docker build --no-cache=true ...</code> 。不做显式声明，默认可能会利用构建缓存，能成功利用构建缓存的情况：</p>
+<ol>
+<li>如果从缓存中存在的一个镜像开始构建，那么会将基于此父镜像的所有子镜像的 Dockerfile 拉出来做一个对比，看下一条指令是否相同，如果不相同，缓存失效。</li>
+<li>对比 Dockerfile 内容是否相同。一些特殊命令，需要更多检测。</li>
+<li>对 <code>ADD</code> 和 <code>COPY</code> ，它们操作的文件对象都会被作为 checksum 的一部分，不一致则缓存失效。</li>
+<li>除了 <code>ADD</code> 和 <code>COPY</code> ，其他命令带来的文件改变，不会被计入 checksum，也就是在匹配镜像时，会忽略此部分的文件的不同。</li>
+</ol>
+<h2 id="其他建议写法"><a href="#其他建议写法" class="headerlink" title="其他建议写法"></a>其他建议写法</h2><ol>
+<li><p>不安装多余的包。降低复杂度、依赖性、镜像大小和构建时间。</p>
+</li>
+<li><p>解耦应用，一个容器只关心一件事情，以达到水平扩展和容器的复用。但是并意味着一个容器一个进程一成不变。</p>
+</li>
+<li><p>减少镜像的层数。只有 <code>RUN</code> , <code>COPY</code> , <code>ADD</code> 三个指令添加层数，其他的指令只会创建临时的层，并不会增加镜像大小。所以，分多个阶段来构建镜像，只拷贝需要的文件到镜像中，能有效减少镜像的大小。</p>
+</li>
+<li><p>为多行参数排序。按字母顺序排序。避免包重复。如下：</p>
+</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y \</span></span><br><span class="line"><span class="bash">  bzr \</span></span><br><span class="line"><span class="bash">  cvs \</span></span><br><span class="line"><span class="bash">  git \</span></span><br><span class="line"><span class="bash">  mercurial \</span></span><br><span class="line"><span class="bash">  subversion</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Dockerfile-指令"><a href="#Dockerfile-指令" class="headerlink" title="Dockerfile 指令"></a>Dockerfile 指令</h2><h3 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h3><p>三种方式</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> [--platform=&lt;platform&gt;] &lt;image&gt; [AS &lt;name&gt;]</span><br><span class="line"><span class="keyword">FROM</span> [--platform=&lt;platform&gt;] &lt;image&gt;[:&lt;tag&gt;] [AS &lt;name&gt;]</span><br><span class="line"><span class="keyword">FROM</span> [--platform=&lt;platform&gt;] &lt;image&gt;[@&lt;digest&gt;] [AS &lt;name&gt;]</span><br></pre></td></tr></table></figure>
+
+<p>几个要点</p>
+<ul>
+<li><code>FROM</code> 开启一个构建</li>
+<li><code>Dockerfile</code> 的第一个必须是 <code>FROM</code> ，但是 <code>FROM</code> 前面可以有 <code>ARG</code> 来声明变量</li>
+<li><code>Dockerfile</code> 中可以出现多个 <code>FROM</code> 来实现多阶段构建</li>
+<li>可以为构建阶段添加别名，在后续 <code>FROM</code> 和 <code>COPY --from=&lt;name|index&gt;</code> 中使用</li>
+</ul>
+<p><code>ARG</code> 的使用样例</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ARG</span>  CODE_VERSION=latest</span><br><span class="line"><span class="keyword">FROM</span> base:$&#123;CODE_VERSION&#125;</span><br><span class="line"><span class="keyword">CMD</span><span class="bash">  /code/run-app</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> extras:$&#123;CODE_VERSION&#125;</span><br><span class="line"><span class="keyword">CMD</span><span class="bash">  /code/run-extras</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="LABEL"><a href="#LABEL" class="headerlink" title="LABEL"></a>LABEL</h3><p>注意事项</p>
+<ul>
+<li>字符串中含有空格，必须<strong>转义</strong>或使用 <code>&quot;&quot;</code></li>
+<li>字符串中含有 <code>&quot;</code> ，必须转义</li>
+<li>用自己的反转域名作为 label 前缀，必须对域名有权限</li>
+<li><code>Docker</code> 保留的前缀： <code>com.docker.*</code> , <code>io.docker.*</code> , <code>org.dockerproject.*</code></li>
+<li>key 应该使用小写字母数字、 <code>.</code> 、 <code>-</code></li>
+</ul>
+<ul>
+<li><p>示例</p>
+</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Set one or more individual labels</span></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> com.example.version=<span class="string">&quot;0.0.1-beta&quot;</span></span></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> vendor1=<span class="string">&quot;ACME Incorporated&quot;</span></span></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> vendor2=ZENITH\ Incorporated</span></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> com.example.release-date=<span class="string">&quot;2015-02-12&quot;</span></span></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> com.example.version.is-production=<span class="string">&quot;&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set multiple labels on one line</span></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> com.example.version=<span class="string">&quot;0.0.1-beta&quot;</span> com.example.release-date=<span class="string">&quot;2015-02-12&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set multiple labels at once, using line-continuation characters to break long lines</span></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> vendor=ACME\ Incorporated \</span></span><br><span class="line"><span class="bash">      com.example.is-beta= \</span></span><br><span class="line"><span class="bash">      com.example.is-production=<span class="string">&quot;&quot;</span> \</span></span><br><span class="line"><span class="bash">      com.example.version=<span class="string">&quot;0.0.1-beta&quot;</span> \</span></span><br><span class="line"><span class="bash">      com.example.release-date=<span class="string">&quot;2015-02-12&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>查看 label</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image inspect</span><br></pre></td></tr></table></figure>
+
+<h3 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h3><p>两种形式</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># shell form</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> &lt;<span class="built_in">command</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># exec form</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> [<span class="string">&quot;executable&quot;</span>, <span class="string">&quot;param1&quot;</span>, <span class="string">&quot;param2&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>shell form</strong> 将会在 shell 中运行，Linux 默认为 <code>/bin/sh -C</code> ，Windows 默认为 <code>cmd /S /C</code> ，默认 shell 可以通过 <code>SHELL</code> 指令进行指定。</p>
+<p><strong>exec form</strong> 会被解析成 JSON 数组，因此需要用 <code>&quot;</code> 扩起来。</p>
+<p> 注： <code>RUN [ &quot;echo&quot;, &quot;$HOME&quot; ]</code> 无法读取变量，要用 <code>RUN [ &quot;sh&quot;, &quot;-c&quot;, &quot;echo $HOME&quot; ]</code> 才行。</p>
+<p>在镜像顶层之上，创建新的镜像层，然后运行命令，结束后，持久化为一个只读镜像层。</p>
+<h4 id="apt-get"><a href="#apt-get" class="headerlink" title="apt-get"></a>apt-get</h4><p>使用 <code>RUN</code> 指令，最多的就是执行 <code>apt-get</code> 之类的代码，来安装依赖。有如下注意点：</p>
+<ul>
+<li>避免运行 <code>apt-get upgrade</code> 和 <code>dist-upgrade</code></li>
+<li>使用 <code>apt-get install -y foo</code> 来自动升级一个依赖包</li>
+<li>将 <code>RUN apt-get update</code> 和 <code>apt-get install</code> 包含在同一个 <code>RUN</code> 指令中</li>
+</ul>
+<p>一个比较推荐的写法</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y \</span></span><br><span class="line"><span class="bash">    aufs-tools \</span></span><br><span class="line"><span class="bash">    automake \</span></span><br><span class="line"><span class="bash">    build-essential \</span></span><br><span class="line"><span class="bash">    curl \</span></span><br><span class="line"><span class="bash">    dpkg-sig \</span></span><br><span class="line"><span class="bash">    libcap-dev \</span></span><br><span class="line"><span class="bash">    libsqlite3-dev \</span></span><br><span class="line"><span class="bash">    mercurial \</span></span><br><span class="line"><span class="bash">    reprepro \</span></span><br><span class="line"><span class="bash">    ruby1.9.1 \</span></span><br><span class="line"><span class="bash">    ruby1.9.1-dev \</span></span><br><span class="line"><span class="bash">    s3cmd=1.1.* \</span></span><br><span class="line"><span class="bash"> &amp;&amp; rm -rf /var/lib/apt/lists/*</span></span><br></pre></td></tr></table></figure>
+
+<p>Debian 和 Ubuntu 会自动运行 <code>apt-get clean</code></p>
+<h4 id="管道符"><a href="#管道符" class="headerlink" title="管道符"></a>管道符</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> wget -O - https://some.site | wc -l &gt; /number</span></span><br></pre></td></tr></table></figure>
+
+<p>默认只以最后一个命令 <code>wc</code> 的状态作为整个 <code>RUN</code> 指令的成功或失败，即使 <code>wget</code> 失败了。但可以通过设置 <code>set -o pipefail</code> 避免失败被忽略。如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">set</span> -o pipefail &amp;&amp; wget -O - https://some.site | wc -l &gt; /number</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><blockquote>
+<p>CMD 指令和我印象中的不太一样。</p>
+</blockquote>
+<p>三种形式</p>
+<ul>
+<li>CMD [“executable”,”param1”,”param2”] (exec form, 首推)</li>
+<li>CMD [“param1”,”param2”] (作为 ENTRYPOINT 的默认参数， <strong>不推荐使用，除非很了解 ENTRYPOINT</strong>)</li>
+<li>CMD command param1 param2 (shell form)</li>
+</ul>
+<p>只能有一个 CMD 指令，多个 CMD 指令的情况，最后一个 CMD 指令生效。目的是提供可执行命令或参数（此时必须指定 ENTRYPOINT）。<br>exec form 不提供变量替换。<br>shell form 默认使用 <code>/bin/sh -c</code> 执行；当执行命令不需要 shell 时，可以使用 exec shell。</p>
+<p>在构建期间：RUN 会执行，并将结果作为镜像层进行提交；CMD 则不会执行。</p>
+<p>CMD 的使用示例（以 nginx 为例）：</p>
+<ul>
+<li>错误❌ ： <code>CMD service nginx start</code></li>
+<li>正确✅ ： <code>CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</code><br>对于容器而言，其启动程序就是容器应用进程，容器就是为了主进程而存在的，主进程退出，容器就失去了存在的意义，从而退出，其它辅助进程不是它需要关心的东西。 <code>CMD service nginx start</code> 会被理解为 <code>CMD [ &quot;sh&quot;, &quot;-c&quot;, &quot;service nginx start&quot;]</code> ，因此主进程实际上是 sh。那么当 <code>service nginx start</code> 命令结束后，sh 也就结束了，sh 作为主进程退出了，自然就会令容器退出。</li>
+</ul>
+<h3 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h3><blockquote>
+<p>这个指令印象中是暴露一个容器的端口，但仔细想了想这个指令，对它的作用产生了怀疑。如果这个指令能暴露端口的话，那么和 <code>docker run -p</code> 是什么关系。</p>
+</blockquote>
+<p>EXPOSE 声明运行时容器提供服务端口，<strong>这只是一个声明</strong>，在运行时并不会因为这个声明应用就会开启这个端口的服务。这个指令的好处为：</p>
+<ol>
+<li>方便镜像使用者理解以配置端口映射</li>
+<li>运行时，使用 <code>docker run -P</code> 为被 EXPOSE 声明过的容器的端口，随机映射一个宿主机端口。</li>
+</ol>
+<h3 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h3><blockquote>
+<p>单纯设置环境变量</p>
+</blockquote>
+<p>格式有两种：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> &lt;key&gt; &lt;value&gt;</span><br><span class="line"><span class="keyword">ENV</span> &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;...</span><br></pre></td></tr></table></figure>
+
+<p>在 ENV 后面的指令/运行时，能访问该环境变量。</p>
+<h3 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h3><blockquote>
+<p>从宿主机，拷贝文件到镜像中</p>
+</blockquote>
+<p>如果源路径为文件夹，复制的时候<strong>不是直接复制该文件夹</strong>，而是将<strong>文件夹中的内容</strong>复制到目标路径。</p>
+<p>权限问题：默认情况下，新拷贝的文件的 UID 和 GID 都是 0，即归属 root 用户。可以通过 <code>--chown USER:GROUP</code> 来修改文件所属（仅适合用于创建 Linux 容器）。</p>
+<p>从 STDIN 构建的话，没有构建上下文，不能使用 COPY。</p>
+<p>COPY 还可以接受 <code>--from=&lt;name|index&gt;</code> 从镜像中拷贝文件。</p>
+<h3 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h3><blockquote>
+<p>之前没见过</p>
+</blockquote>
+<p>与 COPY 类似，但是会自动将压缩包解压到目标文件夹。如下： <code>ADD rootfs.tar.xz /</code> 。</p>
+<p>一般情况用 COPY，需要自动解压压缩包的情景再用 ADD。</p>
+<h3 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h3><blockquote>
+<p>这部分内容之前并没仔细了解过，觉得就是简单的容器的启动命令，填上就行，但是看完这部分的文档后，刷新了认知。</p>
+</blockquote>
+<p>两种启动模式：</p>
+<ul>
+<li>exec form (<strong>preferred form</strong>)： <code>ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code></li>
+<li>shell form： <code>ENTRYPOINT command param1 param2</code></li>
+</ul>
+<h4 id="PID-1-进程"><a href="#PID-1-进程" class="headerlink" title="PID 1 进程"></a><code>PID 1</code> 进程</h4><p>顾名思义，进程号为 1 的进程。特殊的地方在于，<strong>PID 1 进程可以接收发给容器的 UNIX 信号</strong>。</p>
+<p><img src="/images/pics/f5e605f6f1f99f4cc6ac0b03686c722b.png" alt="有什么用？"></p>
+<p>PID 1 进程的用处，可以通过下面的 Dockerfile 来展示：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> top -b</span></span><br></pre></td></tr></table></figure>
+
+<p>构建完成后，执行下面的命令，可以看到关闭容器花费了非常长的时间：</p>
+<p><img src="/images/pics/60f98b0e933ed1ae2fba87d4c332c976.png" alt="非 PID 1"></p>
+<p>当执行 <code>docker stop</code> 时，容器并未完全退出， <code>docker stop</code> 会在超时后，发送 <code>SIGKILL</code> 关闭容器中的其他进程。</p>
+<p>如果 <code>top -b</code> 是 PID 1 进程呢？修改一下 Dockerfile 如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> <span class="built_in">exec</span> top -b</span></span><br></pre></td></tr></table></figure>
+
+<p>可以很明显看出，很顺畅地就完成了 <code>docker stop</code></p>
+<p><img src="/images/pics/780bca2b070b3960789bb44818c2b5ee.png" alt="PID 1"></p>
+<h4 id="exec-form"><a href="#exec-form" class="headerlink" title="exec form"></a>exec form</h4><p>ENTRYPOINT 中的命令默认 PID 为 1，即不会通过某种 shell 来启动（也就无法进行变量替换）。<br>如果是以一个脚本来启动服务，需要在脚本中使用 exec 或 gosu 来执行。</p>
+<ol>
+<li>什么是 gosu?</li>
+</ol>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/tianon/gosu">https://github.com/tianon/gosu</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000004527476">https://segmentfault.com/a/1190000004527476</a></li>
+</ul>
+<ol start="2">
+<li>什么是 exec?</li>
+</ol>
+<h4 id="shell-form"><a href="#shell-form" class="headerlink" title="shell form"></a>shell form</h4><ul>
+<li>CMD、 <code>docker run</code> 命令行参数都会被忽略掉。</li>
+<li>ENTRYPOINT 会以 <code>/bin/sh -c</code> 的子进程运行，即非 PID 1 进程，无法接收 UNIX 信号。</li>
+<li>可以通过 exec 达到让 ENTRYPOINT 指定的服务 PID 为 1。</li>
+</ul>
+<h4 id="ENTRYPOINT-amp-CMD"><a href="#ENTRYPOINT-amp-CMD" class="headerlink" title="ENTRYPOINT &amp; CMD"></a>ENTRYPOINT &amp; CMD</h4><p>两者之间的规定：</p>
+<ol>
+<li>Dockerfile 中至少有一个 ENTRYPOINT 或 CMD。<em>也就说可以有多个，但是最后一个才会生效</em>。</li>
+<li>ENTRYPOINT should be defined when using the container as an executable.<em>Why？</em></li>
+<li>CMD 可以用作 ENTRYPOINT 的默认参数 或 <em>for executing an ad-hoc command in a container</em>.</li>
+<li>CMD will be overridden when running the container with alternative arguments.<em>What?</em></li>
+</ol>
+<p>两者之间的协同关系：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">No ENTRYPOINT</th>
+<th align="left">ENTRYPOINT exec_entry p1_entry (shell form)</th>
+<th align="left">ENTRYPOINT [“exec_entry”, “p1_entry”]（exec form）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>No CMD</strong></td>
+<td align="left"><strong>error, not allowed</strong></td>
+<td align="left"><em>/bin/sh -c exec_entry p1_entry</em></td>
+<td align="left">exec_entry p1_entry</td>
+</tr>
+<tr>
+<td align="left"><strong>CMD [“exec_cmd”, “p1_cmd”]</strong></td>
+<td align="left">exec_cmd p1_cmd</td>
+<td align="left"><em>/bin/sh -c exec_entry p1_entry</em></td>
+<td align="left">exec_entry p1_entry <strong>exec_cmd p1_cmd</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>CMD [“p1_cmd”, “p2_cmd”]</strong></td>
+<td align="left">p1_cmd p2_cmd</td>
+<td align="left"><em>/bin/sh -c exec_entry p1_entry</em></td>
+<td align="left">exec_entry p1_entry <strong>p1_cmd p2_cmd</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>CMD exec_cmd p1_cmd</strong></td>
+<td align="left">/bin/sh -c exec_cmd p1_cmd</td>
+<td align="left"><em>/bin/sh -c exec_entry p1_entry</em></td>
+<td align="left">exec_entry p1_entry <strong>/bin/sh -c exec_cmd p1_cmd</strong></td>
+</tr>
+</tbody></table>
+<h3 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h3><p>含义：直接设置镜像的一个挂载点<br>用途：存放镜像创建的文件、配置、数据库的数据文件。易变、镜像中的用户数据。<br>方式：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">VOLUME</span><span class="bash"> [<span class="string">&quot;/data&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">VOLUME</span><span class="bash"> /var/<span class="built_in">log</span></span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> /var/<span class="built_in">log</span> /var/db</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h3><p>含义：指定镜像运行时的用户和用户组（不指定默认为 root）。<code>USER</code> 指令之后的 <code>CMD</code>、<code>RUN</code>、<code>ENTRYPOINT</code> 都将以 <code>USER</code> 指定的用户和用户组运行。<br>方式：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USER</span> &lt;<span class="keyword">user</span>&gt;[:&lt;group&gt;]</span><br><span class="line"><span class="keyword">USER</span> &lt;UID&gt;[:&lt;GID&gt;]</span><br></pre></td></tr></table></figure>
+<p>避免使用 <code>sudo</code>，它会有一定的问题。确有需要考虑使用 <code>gosu</code>。</p>
+<h3 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h3><p>含义：指定工作目录，建议使用绝对路径（使用相对路径时，会以当前目录中的文件夹为工作目录）。可以根据需要多次指定，避免使用 cd。此指令对后续的 Dockerfile 指令生效，如：RUN, CMD, ENTRYPOINT, COPY, ADD<br>方式：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /path/to/workdir</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ONBUILD"><a href="#ONBUILD" class="headerlink" title="ONBUILD"></a>ONBUILD</h3><p>含义：构建 <em>BaseImage</em> 时，加入 ONBUILD 指令，会在使用（FROM <em>BaseImage</em>）的构建中，执行 ONBUILD 指令后，才执行此构建的构建指令。<br>方式：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ONBUILD</span> <span class="keyword">ADD</span><span class="bash"> . /app/src</span></span><br><span class="line"><span class="keyword">ONBUILD</span> <span class="keyword">RUN</span><span class="bash"> /usr/<span class="built_in">local</span>/bin/python-build --dir /app/src</span></span><br></pre></td></tr></table></figure>
+<p>使用场景：使用 maven 编译 jar 包，并构建我们自己的业务镜像。所以我们的 Dockerfile 可以如下编写：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> maven:<span class="number">3.3</span>-jdk-<span class="number">8</span>-<span class="keyword">onbuild</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;/usr/src/app/target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<p>为啥可以这样？这是因为在 maven:3.3-jdk-8-onbuild 这个镜像中，有 ONBUILD 指令，如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> maven:<span class="number">3</span>-jdk-<span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> mkdir -p /usr/src/app</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /usr/src/app</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ONBUILD</span> <span class="keyword">ADD</span><span class="bash"> . /usr/src/app</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ONBUILD</span> <span class="keyword">RUN</span><span class="bash"> mvn install</span></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/34865361/8437428">Example Link</a></p>
+<p>工作流程：</p>
+<ol>
+<li>遇到 ONBUILD 指令，添加触发器到镜像的 metadata 中，所以 ONBUILD 不影响当前构建的镜像。</li>
+<li>在构建完成后，触发器会被添加到镜像的 manifest 中，可以通过 <code>docker inspect</code> 进行查看。</li>
+<li>当被用作基础镜像（FROM xxx）后，新构建执行触发器，即 ONBUILD 指令，全部成功执行完后，才开始新镜像的构建。</li>
+<li>触发器在执行后会被清除。</li>
+</ol>
+<h3 id="HEALTHCHECK"><a href="#HEALTHCHECK" class="headerlink" title="HEALTHCHECK"></a>HEALTHCHECK</h3><p>方式：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check container health by running a command inside the container</span></span><br><span class="line"><span class="keyword">HEALTHCHECK</span><span class="bash"> [OPTIONS] CMD <span class="built_in">command</span></span></span><br><span class="line"><span class="comment"># disable any healthcheck inherited from the base image</span></span><br><span class="line"><span class="keyword">HEALTHCHECK</span><span class="bash"> NONE</span></span><br></pre></td></tr></table></figure>
+<p>其中 OPTIONS 可以做如下设置：</p>
+<ul>
+<li><code>--interval=DURATION</code> (default: 30s)</li>
+<li><code>--timeout=DURATION</code> (default: 30s)</li>
+<li><code>--start-period=DURATION</code> (default: 0s)</li>
+<li><code>--retries=N</code> (default: 3)</li>
+</ul>
+<p>docker 容器的健康状况：</p>
+<ul>
+<li><code>starting</code>：初始状态。</li>
+<li><code>healthy</code>：当有任何一次健康检查通过时</li>
+<li><code>unhealthy</code>：当连续 <strong>retries</strong> 次健康检查都失败时</li>
+<li><code>failed</code>：单次检查时间超过 <strong>timeout</strong></li>
+</ul>
+<p>如何写一条 HEALTHCHECK 指令？<br>本质上是执行一条 shell 命令，不同的返回值，表示不同的含义。</p>
+<ul>
+<li>0：成功</li>
+<li>1：失败</li>
+<li>2：预留，勿用</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">HEALTHCHECK</span><span class="bash"> --interval=5m --timeout=3s \</span></span><br><span class="line"><span class="bash">  CMD curl -f http://localhost/ || <span class="built_in">exit</span> 1</span></span><br></pre></td></tr></table></figure>
+<p>针对此容器的健康检查，只检查 80 端口的服务，是否能正常返回。</p>
+<p>Reference:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">https://docs.docker.com/develop/develop-images/dockerfile_best-practices/</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a></li>
+</ol>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Dockerfiles 官网 doc 笔记</p><p><a href="https://eucham.me/2020/09/08/172fdf84bb45.html">https://eucham.me/2020/09/08/172fdf84bb45.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>遇寻</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-09-08</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-02-09</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Dockerfile/">Dockerfile</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=5f548d5caad6e60013d63db8&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/09/23/fb0ee74ab711.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">1 | Golang：基础数据结构</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/09/07/bcbf447aaf6e.html"><span class="level-item">Golang面试题库</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://eucham.me/2020/09/08/172fdf84bb45.html';
+            this.page.identifier = '2020/09/08/172fdf84bb45.html';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'eucham' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/12/"><span class="level-start"><span class="level-item">十二月 2024</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/02/"><span class="level-start"><span class="level-item">二月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/01/"><span class="level-start"><span class="level-item">一月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/06/"><span class="level-start"><span class="level-item">六月 2023</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/02/"><span class="level-start"><span class="level-item">二月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/01/"><span class="level-start"><span class="level-item">一月 2023</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">十月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">八月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/07/"><span class="level-start"><span class="level-item">七月 2022</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">五月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">十月 2021</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/08/"><span class="level-start"><span class="level-item">八月 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">七月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">六月 2021</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/05/"><span class="level-start"><span class="level-item">五月 2021</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">四月 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/11/"><span class="level-start"><span class="level-item">十一月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">十月 2020</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/09/"><span class="level-start"><span class="level-item">九月 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/08/"><span class="level-start"><span class="level-item">八月 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/07/"><span class="level-start"><span class="level-item">七月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">六月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">五月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">四月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/03/"><span class="level-start"><span class="level-item">三月 2020</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/02/"><span class="level-start"><span class="level-item">二月 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/01/"><span class="level-start"><span class="level-item">一月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/12/"><span class="level-start"><span class="level-item">十二月 2019</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/11/"><span class="level-start"><span class="level-item">十一月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/10/"><span class="level-start"><span class="level-item">十月 2019</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/08/"><span class="level-start"><span class="level-item">八月 2019</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/07/"><span class="level-start"><span class="level-item">七月 2019</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/06/"><span class="level-start"><span class="level-item">六月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/05/"><span class="level-start"><span class="level-item">五月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/04/"><span class="level-start"><span class="level-item">四月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/03/"><span class="level-start"><span class="level-item">三月 2019</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/02/"><span class="level-start"><span class="level-item">二月 2019</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/01/"><span class="level-start"><span class="level-item">一月 2019</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/12/"><span class="level-start"><span class="level-item">十二月 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/11/"><span class="level-start"><span class="level-item">十一月 2018</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/09/"><span class="level-start"><span class="level-item">九月 2018</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/08/"><span class="level-start"><span class="level-item">八月 2018</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/07/"><span class="level-start"><span class="level-item">七月 2018</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/06/"><span class="level-start"><span class="level-item">六月 2018</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/05/"><span class="level-start"><span class="level-item">五月 2018</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/04/"><span class="level-start"><span class="level-item">四月 2018</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/03/"><span class="level-start"><span class="level-item">三月 2018</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/02/"><span class="level-start"><span class="level-item">二月 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/01/"><span class="level-start"><span class="level-item">一月 2018</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/12/"><span class="level-start"><span class="level-item">十二月 2017</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/10/"><span class="level-start"><span class="level-item">十月 2017</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/09/"><span class="level-start"><span class="level-item">九月 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/03/"><span class="level-start"><span class="level-item">三月 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/01/"><span class="level-start"><span class="level-item">一月 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/12/"><span class="level-start"><span class="level-item">十二月 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/249b2dc63505.html"><img src="/images/pics/5300c911560a8d2e0d745dcaf025d22f.jpg" alt="M系列MacBook连接l2tp时失败的问题修复"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/249b2dc63505.html">M系列MacBook连接l2tp时失败的问题修复</a></p><p class="categories"><a href="/categories/macOS/">macOS</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/e9036e8500f6.html"><img src="/images/thumbnails/rust-lang.png" alt="Rust学习笔记"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/e9036e8500f6.html">Rust学习笔记</a></p><p class="categories"><a href="/categories/Rust/">Rust</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/4948e86c1262.html"><img src="/images/pics/DrRvr9.jpg" alt="Calico证书学习笔记"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/4948e86c1262.html">Calico证书学习笔记</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/6dae87e31dc3.html"><img src="/images/pics/e9f22d889a230bfda8e24c0a981740a8.png" alt="如何在YAML文件中进行优雅地换行"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/6dae87e31dc3.html">如何在YAML文件中进行优雅地换行</a></p><p class="categories"><a href="/categories/Golang/">Golang</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/09/25470f32f4bb.html"><img src="/images/pics/kubernetes-cka-color.svg" alt="CKS证书学习资料汇编"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-08T16:00:00.000Z">2024-12-09</time></p><p class="title"><a href="/2024/12/09/25470f32f4bb.html">CKS证书学习资料汇编</a></p><p class="categories"><a href="/categories/Kubernetes/">Kubernetes</a></p></div></article></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://crisfang.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Cris</span></span><span class="level-right"><span class="level-item tag">crisfang.com</span></span></a></li><li><a class="level is-mobile" href="https://sanyuesha.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">三月沙</span></span><span class="level-right"><span class="level-item tag">sanyuesha.com</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/pics/d261cdb6203e0da42ae1324dd3aae11f.png" alt="遇寻笔记" height="28"></a><p class="is-size-7"><span>&copy; 2024 遇寻</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="To Find Me" href="https://github.com/eucham"><i class="fab fa-github"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="LinkedIn" href="https://www.linkedin.com/in/eucham"><i class="fab fa-linkedin"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
